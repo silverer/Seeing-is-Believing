@@ -1,0 +1,10 @@
+src/__pycache__/*
+src/.DS_Store
+src/.ipynb_checkpoints/*
+data/experiment/.DS_Store
+data/buildings/.DS_Store
+data/articles/.DS_Store
+.DS_Store
+data/.DS_Store
+src/data_io_private.py
+src/data_io_private.R

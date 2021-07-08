@@ -1,0 +1,101 @@
+---
+title: "Seeing is believing 3-way ANOVAs"
+author: "Elisabeth R. Silver et al."
+date: "07/08/2021"
+output:
+  word_document: 
+    reference_docx: sib-style-ref.docx
+  pdf_document:
+    latex_engine: xelatex
+font-family: Times New Roman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(stargazer)
+library(knitr)
+library(papaja)
+library(cowplot)
+source('printout_backend.R')
+
+```
+
+## 3-way interactions
+
+Knitting this file to a Word document produces formatted outputs that can be easily copied and pasted into a manuscript write-up file.
+
+
+```{r plots.all, fig.width=8,echo=FALSE,message=FALSE,results="asis"}
+vnames <- c(z.lead.all = 'STEM Career Interest',
+                     z.interest.all = 'General STEM Interest',
+                     z.dd.belonging.all = 'STEM Belonging',
+                     z.dd.id.all = 'Identification with STEM')
+
+oc <- c('z.lead.all', 'z.interest.all',
+        'z.dd.belonging.all',
+        'z.dd.id.all')
+
+
+pgender.index <- 2
+image.index <- 3
+sci.gender.index <- 4
+interaction.index <- 8
+for(o in oc){
+  cat("  \n###",  vnames[[o]], "  \n")
+  
+  if(as.numeric(aov_results[[o]]$p[interaction.index])< 0.05){
+    cat("  \n")
+    cat('There was a significant 3-way interaction between image condition, scientist gender, and participant gender, ', aov_results[[o]]$stat_string[interaction.index], '.')
+    cat("  \n")
+    cat("  \n")
+    print(plots.3way[[o]])
+    cowplot::save_plot(paste0("../plots/", o, ".png"), plots.3way[[o]], base_width = 8.5, base_height = 10)
+    cat("  \n")
+    cat("  \n")
+    
+  }else if(as.numeric(aov_results[[o]]$p[interaction.index])< 0.1){
+    cat("  \n")
+    cat('There was a marginal 3-way interaction between image condition, scientist gender, and participant gender, ', aov_results[[o]]$stat_string[interaction.index], '.')
+    cat("  \n")
+    cat("  \n")
+    print(plots.3way[[o]])
+    cowplot::save_plot(paste0("../plots/", o, ".png"), plots.3way[[o]], base_width = 8.5, base_height = 10)
+    cat("  \n")
+    cat("  \n")
+  }else{
+    cat("  \n")
+    cat('The 3-way interaction between image condition, scientist gender, and participant gender was not significant, ', aov_results[[o]]$stat_string[interaction.index], '.')
+    cat("  \n")
+    cat("  \n")
+  }
+  
+  cat("  \n")
+  cat("Main effect of participant gender: ", aov_results[[o]]$stat_string[pgender.index])
+  cat("  \n")
+  cat("Main effect of image condition: ", aov_results[[o]]$stat_string[image.index])
+  cat("  \n")
+  cat("Main effect of scientist gender condition: ", aov_results[[o]]$stat_string[sci.gender.index])
+  cat("  \n")
+  cat("  \n")
+  
+}
+```
+
+
+
+
+
+```{r,echo=FALSE,message=FALSE,results="asis"}
+
+for(n in new.rows){
+  this_contr <- pairwise_df %>% dplyr::filter(new.contrast == n)
+  this_contr <- this_contr %>% dplyr::select(new.contrast, formatted.result, outcome)
+  print(knitr::kable(this_contr))
+  cat("  \n")
+}
+
+```
+
+
+
+
