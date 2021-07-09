@@ -8,3 +8,4 @@ data/articles/.DS_Store
 data/.DS_Store
 src/data_io_private.py
 src/data_io_private.R
+.Rhistory

@@ -28,7 +28,7 @@ The second study in this code repository scrapes STEM research news articles fro
 
 ## Study 3
 
-The final study is an experimental study. To protect participants' privacy, we have removed all variables that may directly or indirectly reveal participants' identities. This includes most free response items (other than anagram responses), specific dates and times, specific college majors, detailed race and ethnicity data, etc. Because many of the scripts source other scripts in this analysis, the only scripts that must be run are `save_anova_outputs.R` and `SIB Formatted Outputs.Rmd`.
+The final study is an experimental study. To protect participants' privacy, we have removed all variables that may directly or indirectly reveal participants' identities. This includes most free response items (other than anagram responses), specific dates and times of participation, specific college majors, detailed race and ethnicity data, etc. Because many of the scripts source other scripts in this analysis, the only scripts that must be run are `save_anova_outputs.R` and `SIB Formatted Outputs.Rmd`.
 
 Note that many of the test statistic formatting operations are accomplished through a custom package that is still in development called `statstring`. The package can be installed via Github using the R package `devtools` as follows: `devtools::install_github("silverer/statstring")`. Alternatively, you can remove all instances of `format_anova_string` and calls to objects produced by this function in `SIB Formatted Outputs.Rmd`. 
 

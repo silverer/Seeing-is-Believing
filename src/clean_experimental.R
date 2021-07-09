@@ -318,35 +318,6 @@ sib['anagram.time.impossible.trimmed'] <- abs(x-med.val)/mad.val
 sib['anagram.time.impossible.trimmed'] <- ifelse(sib[['anagram.time.impossible.trimmed']]<2.24&!is.na(sib[['anagram.time.impossible']]),
                                                  sib[['anagram.time.impossible']], NA)
 
-#summary(as.factor(sib$race))
-sib$race.cat<-as.factor(with(sib, ifelse(race==1, "American Indian/Alaska Native",
-                                         ifelse(race==13, "Asian",
-                                                ifelse(race==10, "Black/African American",
-                                                       ifelse(race==11, "Native Hawaiian/Other Pacific Islander",
-                                                              ifelse(race==3, "White",
-                                                                     ifelse(race==12, "Prefer not to say",
-                                                                            "Multiracial or self-describe"))))))))
-summary(sib$race.cat)
-hispanic.list<-c(1,12,112)
-sib$ethnicity.cat<-as.factor(with(sib, ifelse(ethnicity %in% hispanic.list, "hispanic/latino",
-                                              ifelse(ethnicity==2, "non-hispanic/latino",
-                                                      "other"))))
-
-
-#Assign major as STEM or non-STEM (see .csv for details)
-stem.majors <- read.csv(paste0(experiment_data, '/SIBStemMajors.csv'))
-matches <- regmatches(stem.majors$title_and_code, gregexpr("[[:digit:]]+", 
-                                                           stem.majors$title_and_code))
-stem.majors$major_code <- unlist(matches)
-AssignStemMajors <- function(major.list){
-  temp = str_split(major.list, ",")
-  for(t in temp){
-    ifelse(t %in% stem.majors$major_code,
-           return(TRUE), next)
-  }
-  return(FALSE)
-}
-sib$is.stem.major <- unlist(lapply(sib$major, AssignStemMajors))
 
 sib <- sib %>% 
   mutate(gender.cond = as.factor(ifelse(gender.cond == 'F', 'Female scientist',
