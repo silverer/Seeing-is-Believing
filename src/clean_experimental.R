@@ -1,11 +1,10 @@
-pacman::p_load(sjlabelled, sjmisc, dplyr, psych, lavaan, 
-               semPlot, car, ggplot2, lsr, apaTables, 
-               readr, stringi, careless, stringr)
+if (!require("pacman")) install.packages("pacman"); library(pacman)
+pacman::p_load(dplyr, psych,stringr)
 setwd("~/Documents/Seeing-is-Believing/")
 #Data paths for input and output
 source('src/data_io.R')
 
-sib<-read.csv(paste0(experiment_data, '/cleaned_de_id_data.csv'))
+sib<-read.csv(paste0(experiment_data, '/experimental_de_id_data.csv'))
 nrow(sib)
 #Filter out garbage responses
 sib <- sib[sib$DistributionChannel!="preview" &!is.na(sib$FL_15_DO),]
@@ -255,16 +254,6 @@ sib$anagram7.strip[sib$anagram7.strip==''] <- NA
 sib$anagram9.strip<-trimws(tolower(sib$anagram9))
 sib$anagram9.strip[sib$anagram9.strip==''] <- NA
 
-#Add indicators for valid unsolvable anagram responses
-IsAnswer <- function(response){
-  ifelse(is.na(response), return(0),
-         ifelse(str_length(response)< 5, return(0),
-                ifelse(str_contains(response, c("n/a", 'na', 'know', "/",'-','?',
-                                                'sure', 'possible', 'solution', 'answer', 'idk', 
-                                                'solv', "can't", 'not ', "don't", "..."),
-                                    logic = 'or'), return(0), return(1)))
-         )
-}
 #anagram1 - mitochondria
 #anagram2 - no solution
 #anagram3 - no solution
@@ -275,17 +264,6 @@ IsAnswer <- function(response){
 #anagram8 - centrifuge
 #anagram9 - no solution
 #anagram10 - microscope
-sib$anagram2.answer <- unlist(lapply(sib$anagram2.strip, IsAnswer))
-sib$anagram3.answer <- unlist(lapply(sib$anagram3.strip, IsAnswer))
-sib$anagram6.answer <- unlist(lapply(sib$anagram6.strip, IsAnswer))
-sib$anagram7.answer <- unlist(lapply(sib$anagram7.strip, IsAnswer))
-sib$anagram9.answer <- unlist(lapply(sib$anagram9.strip, IsAnswer))
-
-sib$num.impossible.answers <- rowSums(sib[,c("anagram2.answer","anagram3.answer",
-                                             "anagram6.answer","anagram7.answer",
-                                             "anagram9.answer")], na.rm=TRUE)
-sib$any.impossible.answer <- with(sib, ifelse(num.impossible.answers>=1,
-                                                     TRUE, FALSE))
 #time - matters for impossible anagrams 2,3,6,7,9
 
 #anagram2 - no solution

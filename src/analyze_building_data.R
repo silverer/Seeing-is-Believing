@@ -2,7 +2,7 @@ setwd("~/Documents/Seeing-is-Believing/")
 #Data paths for input and output
 source('src/data_io.R')
 if (!require("pacman")) install.packages("pacman"); library(pacman)
-p_load(stats, dplyr, readxl, psych, rstatix, effsize)
+p_load(stats, dplyr)
 
 building_codes <- read.csv(paste0(building_data, "/building_recode.csv"))
 

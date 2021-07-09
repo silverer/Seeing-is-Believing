@@ -2,7 +2,7 @@ setwd("~/Documents/Seeing-is-Believing/")
 #Data paths for input and output
 source('src/data_io.R')
 if (!require("pacman")) install.packages("pacman"); library(pacman)
-p_load(stats, dplyr, readxl, psych, rstatix, effsize)
+p_load(stats, dplyr)
 
 df <- read.csv(paste0(article_data,'/article_data_cleaned.csv'))
 #num_X_res_pics is the actual total count for an article,

@@ -1,0 +1,150 @@
+
+To cite package ‘dplyr’ in publications use:
+
+  Hadley Wickham, Romain François, Lionel Henry and Kirill Müller
+  (2021). dplyr: A Grammar of Data Manipulation. R package version
+  1.0.7. https://CRAN.R-project.org/package=dplyr
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {dplyr: A Grammar of Data Manipulation},
+    author = {Hadley Wickham and Romain François and Lionel Henry and Kirill Müller},
+    year = {2021},
+    note = {R package version 1.0.7},
+    url = {https://CRAN.R-project.org/package=dplyr},
+  }
+
+  
+
+To cite package ‘apaTables’ in publications use:
+
+  Stanley, D. (2021). apaTables: Create American Psychological Association (APA) Style Tables. R package version 2.0.8. https://CRAN.R-project.org/package=apaTables
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {apaTables: Create American Psychological Association (APA) Style Tables},
+    author = {David Stanley},
+    year = {2021},
+    note = {R package version 2.0.8},
+    url = {https://CRAN.R-project.org/package=apaTables},
+  }
+
+  
+
+To cite package ‘emmeans’ in publications use:
+
+  Lenth, R.V. (2021). emmeans: Estimated Marginal Means, aka Least-Squares Means. R package version 1.6.1. https://CRAN.R-project.org/package=emmeans
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {emmeans: Estimated Marginal Means, aka Least-Squares Means},
+    author = {Russell V. Lenth},
+    year = {2021},
+    note = {R package version 1.6.1},
+    url = {https://CRAN.R-project.org/package=emmeans},
+  }
+
+  
+
+To cite the psych package in publications use:
+
+  Revelle, W. (2021) psych: Procedures for Personality and Psychological Research. R package version 2.1.6. Northwestern University, Evanston, Illinois, USA, https://CRAN.R-project.org/package=psych.
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {psych: Procedures for Psychological, Psychometric, and Personality Research},
+    author = {William Revelle},
+    organization = { Northwestern University},
+    address = { Evanston, Illinois},
+    year = {2021},
+    note = {R package version 2.1.6},
+    url = {https://CRAN.R-project.org/package=psych},
+  }
+
+  
+
+To cite package ‘rstatix’ in publications use:
+
+Kassambara, A. (2021). rstatix: Pipe-Friendly Framework for Basic Statistical Tests. R package version 0.7.0. https://CRAN.R-project.org/package=rstatix
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {rstatix: Pipe-Friendly Framework for Basic Statistical Tests},
+    author = {Alboukadel Kassambara},
+    year = {2021},
+    note = {R package version 0.7.0},
+    url = {https://CRAN.R-project.org/package=rstatix},
+  }
+
+  
+
+To cite ggplot2 in publications, please use:
+
+  Wickham, H. (2016) ggplot2: Elegant Graphics for Data Analysis. Springer-Verlag New York, 2016. https://ggplot2.tidyverse.org
+
+A BibTeX entry for LaTeX users is
+
+  @Book{,
+    author = {Hadley Wickham},
+    title = {ggplot2: Elegant Graphics for Data Analysis},
+    publisher = {Springer-Verlag New York},
+    year = {2016},
+    isbn = {978-3-319-24277-4},
+    url = {https://ggplot2.tidyverse.org},
+  }
+
+  
+
+To cite package ‘scales’ in publications use:
+
+Wickham, H. & Seidel, D. (2020). scales: Scale Functions for Visualization. R package version 1.1.1. https://CRAN.R-project.org/package=scales
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {scales: Scale Functions for Visualization},
+    author = {Hadley Wickham and Dana Seidel},
+    year = {2020},
+    note = {R package version 1.1.1},
+    url = {https://CRAN.R-project.org/package=scales},
+  }
+
+  
+
+To cite pacman in publications, please use:
+
+  Rinker, T. W. & Kurkiewicz, D. (2017). pacman: Package Management for R. version 0.5.0. Buffalo, New York. http://github.com/trinker/pacman
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {{pacman}: {P}ackage Management for {R}},
+    author = {Tyler W. Rinker and Dason Kurkiewicz},
+    address = {Buffalo, New York},
+    note = {version 0.5.0},
+    year = {2018},
+    url = {http://github.com/trinker/pacman},
+  }
+
+  
+
+To cite package ‘stringr’ in publications use:
+
+  Wickham, H. (2019). stringr: Simple, Consistent Wrappers for Common String Operations. R package version 1.4.0. https://CRAN.R-project.org/package=stringr
+
+A BibTeX entry for LaTeX users is
+
+  @Manual{,
+    title = {stringr: Simple, Consistent Wrappers for Common String Operations},
+    author = {Hadley Wickham},
+    year = {2019},
+    note = {R package version 1.4.0},
+    url = {https://CRAN.R-project.org/package=stringr},
+  }
+
+  

@@ -12,9 +12,7 @@ font-family: Times New Roman
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(stargazer)
 library(knitr)
-library(papaja)
 library(cowplot)
 source('printout_backend.R')
 
@@ -41,7 +39,15 @@ image.index <- 3
 sci.gender.index <- 4
 interaction.index <- 8
 for(o in oc){
+  
   cat("  \n###",  vnames[[o]], "  \n")
+  for(i in 1:nrow(aov_results[[o]])){
+    cat(aov_results[[o]]$Predictor[i])
+    cat("  \n")
+    cat("  \n")
+    cat(aov_results[[o]]$stat_string[i])
+    cat("  \n")
+  }
   
   if(as.numeric(aov_results[[o]]$p[interaction.index])< 0.05){
     cat("  \n")
@@ -70,13 +76,7 @@ for(o in oc){
   }
   
   cat("  \n")
-  cat("Main effect of participant gender: ", aov_results[[o]]$stat_string[pgender.index])
-  cat("  \n")
-  cat("Main effect of image condition: ", aov_results[[o]]$stat_string[image.index])
-  cat("  \n")
-  cat("Main effect of scientist gender condition: ", aov_results[[o]]$stat_string[sci.gender.index])
-  cat("  \n")
-  cat("  \n")
+  
   
 }
 ```

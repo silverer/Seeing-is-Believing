@@ -3,8 +3,8 @@
 #setwd("~/Documents/Seeing-is-Believing/")
 if (!require("pacman")) install.packages("pacman"); library(pacman)
 source("data_io.R")
-p_load(stats, psych, tidyverse, tableone, ggpubr, descr,
-       papeR, emmeans, Hmisc, rstatix, effsize, 
+p_load(stats, psych, tidyverse, 
+       emmeans, 
        apaTables, scales, statstring)
 
 sib.og <- read.csv(paste0("../",experiment_data, "/outcomes_experimental_data_clean.csv"))
