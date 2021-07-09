@@ -79,11 +79,13 @@ for(o in oc){
   
   
 }
+#save multipanel plot
+cowplot::save_plot("../plots/multipanel.eps", figure,
+                   base_height = 6, base_width = 8,
+                   dpi=400, family = "Times")
 ```
 
-
-
-
+Output pairwise contrast results:
 
 ```{r,echo=FALSE,message=FALSE,results="asis"}
 
