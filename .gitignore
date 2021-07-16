@@ -1,7 +1,9 @@
 src/__pycache__/*
+src/scratch.ipynb
 src/.DS_Store
 src/.ipynb_checkpoints/*
 data/experiment/.DS_Store
+data/experiment/experimental_de_id_data.csv
 data/buildings/.DS_Store
 data/articles/.DS_Store
 .DS_Store
