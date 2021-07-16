@@ -1,24 +1,14 @@
 setwd("~/Documents/Seeing-is-Believing/")
 #Data paths for input and output
 source('src/data_io.R')
-if(exists("sib")){
-  print('skipping full load') #throwaway variable
-}else{
-  source('src/zscore_descriptive_stats.R')
-}
+#source the file below to read in the dataset
+source('src/zscore_descriptive_stats.R')
 
 if (!require("pacman")) install.packages("pacman"); library(pacman)
 devtools::install_github("silverer/statstring")
 p_load(stats, psych, dplyr,
        apaTables, statstring)
 
-sib.clean = sib %>% 
-  dplyr::select(article.cond, gender.cond, z.lead.all,
-                z.interest.all, z.dd.belonging.all, 
-                z.dd.id.all,participant.gender,`Image condition`) %>% 
-  dplyr::rename(image.cond=`Image condition`)
-#Save subset of data with just variables necessary for analysis
-write.csv(sib.clean, paste0(experiment_data,"/outcomes_experimental_data_clean.csv"))
 
 ### 3-way AOVs pretty output
 ###NOTE: tmp.sib is created by calling source("src/zscore_descriptive_stats.R")

@@ -16,7 +16,8 @@ exclusion_tracker['original_length'] <- nrow(sib)
 #### Filter people who didn't finish, listed gender other than M/W, or were in research methods class ####
 
 exclusion_tracker['unfinished'] <- nrow(sib %>% dplyr::filter(Progress != 100))
-exclusion_tracker['in_psyc485'] <- nrow(sib %>% dplyr::filter(in_research_methods_class==T))
+exclusion_tracker['in_research_methods_class'] <- nrow(sib %>% 
+                                                         dplyr::filter(in_research_methods_class==T))
 sib<-sib %>% 
   dplyr::filter(Progress == 100 & in_research_methods_class==FALSE)
 
@@ -30,9 +31,6 @@ nrow(sib)
 #1 male, 2 female
 sib$genderF<-as.factor(as.character(sib$gender)) 
 #replace anything except MF with NA
-sib$gender.mf.F<-as.factor(with(sib, ifelse(gender == 1, "1",
-                                            ifelse(gender == 2, "2",
-                                                   NA))))
 sib$participant.gender<-as.factor(with(sib, ifelse(gender == "1", "Men",
                                               ifelse(gender == "2", "Women",
                                                     NA))))
@@ -309,3 +307,35 @@ sib <- sib %>%
                                                        paste0(article.image.cond, '-M')))
          )
 
+#### Create dataset with aggregate outcomes only ####
+outcomes <- c('z.lead.all', 'z.interest.all',
+              'z.dd.belonging.all', 
+              'z.dd.id.all')
+unstd_outcomes <- str_replace(outcomes, "z[.]", "")
+alphas <- rep(1, length(unstd_outcomes))
+names(alphas) <- unstd_outcomes
+#Calculate reliabilities
+alphas[['interest.all']] <- psych::alpha(interest)$total$raw_alpha
+alphas[['lead.all']] <- psych::alpha(lead)$total$raw_alpha
+alphas[['dd.id.all']] <- psych::alpha(dd.id)$total$raw_alpha
+alphas[['dd.belonging.all']] <- psych::alpha(dd.belonging)$total$raw_alpha
+alpha.df <- as.data.frame(alphas)
+write.csv(alpha.df, paste0(output, 'cronbach_alphas.csv'))
+
+
+#Z-score outcomes
+
+sib <- sib %>% 
+  mutate(z.lead.all = scale(lead.all),
+         z.interest.all = scale(interest.all),
+         z.dd.belonging.all = scale(dd.belonging.all),
+         z.dd.id.all = scale(dd.id.all))
+
+sib.clean <- sib %>% 
+  dplyr::select(article.cond, gender.cond, z.lead.all,
+                z.interest.all, z.dd.belonging.all, 
+                z.dd.id.all,participant.gender,`Image condition`,
+                lead.all, interest.all, dd.belonging.all, dd.id.all) %>% 
+  dplyr::rename(image.cond=`Image condition`)
+#Save subset of data with just variables necessary for analysis
+write.csv(sib.clean, paste0(experiment_data,"/outcomes_experimental_data_clean.csv"))
