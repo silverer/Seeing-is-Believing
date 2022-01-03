@@ -1,0 +1,193 @@
+var_name,var_desc
+StartDate,Start Date
+EndDate,End Date
+Status,Response Type
+IPAddress,IP Address
+Progress,Progress
+Duration (in seconds),Duration (in seconds)
+Finished,Finished
+RecordedDate,Recorded Date
+ResponseId,Response ID
+RecipientLastName,Recipient Last Name
+RecipientFirstName,Recipient First Name
+RecipientEmail,Recipient Email
+ExternalReference,External Data Reference
+LocationLatitude,Location Latitude
+LocationLongitude,Location Longitude
+DistributionChannel,Distribution Channel
+UserLanguage,User Language
+consent,
+age,What is your age (in years)?
+race,What is your race? (check all that apply) - Selected Choice
+race_5_TEXT,What is your race? (check all that apply) - Other (please specify) - Text
+ethnicity,What is your ethnicity? (check all that apply) - Selected Choice
+ethnicity_5_TEXT,What is your ethnicity? (check all that apply) - Other (please specify) - Text
+major.declare,Have you declared a major?
+gender,What is your gender? - Selected Choice
+gender_3_TEXT,What is your gender? - Prefer to self describe (please specify): - Text
+against.time_First Click,Timing - First Click
+against.time_Last Click,Timing - Last Click
+against.time_Page Submit,Timing - Page Submit
+against.time_Click Count,Timing - Click Count
+genes.time_First Click,Timing - First Click
+genes.time_Last Click,Timing - Last Click
+genes.time_Page Submit,Timing - Page Submit
+genes.time_Click Count,Timing - Click Count
+shell.time_First Click,Timing - First Click
+shell.time_Last Click,Timing - Last Click
+shell.time_Page Submit,Timing - Page Submit
+shell.time_Click Count,Timing - Click Count
+stimuli.title,What was the title of the article?
+stimuli.topic.FR,Please briefly summarize the article:
+anagram1.time_First Click,Timing - First Click
+anagram1.time_Last Click,Timing - Last Click
+anagram1.time_Page Submit,Timing - Page Submit
+anagram1.time_Click Count,Timing - Click Count
+anagram1,iodroamchitn
+anagram2.time_First Click,Timing - First Click
+anagram2.time_Last Click,Timing - Last Click
+anagram2.time_Page Submit,Timing - Page Submit
+anagram2.time_Click Count,Timing - Click Count
+anagram2,ieqpinuo
+anagram3.time_First Click,Timing - First Click
+anagram3.time_Last Click,Timing - Last Click
+anagram3.time_Page Submit,Timing - Page Submit
+anagram3.time_Click Count,Timing - Click Count
+anagram3,tipppee
+anagram4.time_First Click,Timing - First Click
+anagram4.time_Last Click,Timing - Last Click
+anagram4.time_Page Submit,Timing - Page Submit
+anagram4.time_Click Count,Timing - Click Count
+anagram4,opacittnumo
+anagram5.time_First Click,Timing - First Click
+anagram5.time_Last Click,Timing - Last Click
+anagram5.time_Page Submit,Timing - Page Submit
+anagram5.time_Click Count,Timing - Click Count
+anagram5,eextmreipn
+anagram6.time_First Click,Timing - First Click
+anagram6.time_Last Click,Timing - Last Click
+anagram6.time_Page Submit,Timing - Page Submit
+anagram6.time_Click Count,Timing - Click Count
+anagram6,opbtnloyce
+anagram7.time_First Click,Timing - First Click
+anagram7.time_Last Click,Timing - Last Click
+anagram7.time_Page Submit,Timing - Page Submit
+anagram7.time_Click Count,Timing - Click Count
+anagram7,sitinoart
+anagram8.time_First Click,Timing - First Click
+anagram8.time_Last Click,Timing - Last Click
+anagram8.time_Page Submit,Timing - Page Submit
+anagram8.time_Click Count,Timing - Click Count
+anagram8,necertguif
+anagram9.time_First Click,Timing - First Click
+anagram9.time_Last Click,Timing - Last Click
+anagram9.time_Page Submit,Timing - Page Submit
+anagram9.time_Click Count,Timing - Click Count
+anagram9,aalcnelity
+anagram10.time_First Click,Timing - First Click
+anagram10.time_Last Click,Timing - Last Click
+anagram10.time_Page Submit,Timing - Page Submit
+anagram10.time_Click Count,Timing - Click Count
+anagram10,oscciopmre
+creativity.time_First Click,Timing - First Click
+creativity.time_Last Click,Timing - Last Click
+creativity.time_Page Submit,Timing - Page Submit
+creativity.time_Click Count,Timing - Click Count
+creativity,
+interest_1,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do NOT like STEM."
+interest_2,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I enjoy learning about STEM."
+interest_3,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am curious about STEM."
+interest_4,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am NOT interested in STEM."
+interest_5,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I like STEM."
+interest_6,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM is appealing to me."
+interest_7,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM is important to me."
+interest_8,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel there is a need for STEM."
+interest_9,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do NOT need STEM."
+interest_10,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - It is valuable for me to learn STEM."
+interest_11,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM is good for me."
+interest_12,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do NOT care about STEM."
+interest_13,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I will continue to enjoy STEM."
+interest_14,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am NOT interested in a career involving STEM."
+interest_15,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am interested in alternative programs in STEM."
+interest_16,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I would like to learn more about STEM."
+interest_17,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do NOT wish to continue my education in STEM."
+interest_18,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am committed to learning STEM."
+lead_1,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I would consider choosing a career that uses STEM."
+lead_2,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I would consider a career in STEM."
+lead_3,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I expect to use STEM when I get out of school."
+lead_4,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - Knowing STEM will help me earn a living."
+lead_5,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I will need STEM for my future work."
+lead_6,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM will be important to me in my life’s work."
+lead_7,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am committed to learning STEM."
+pj.fit_1,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - My abilities fit the demands of a STEM job."
+pj.fit_2,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I have the right skills and abilities for doing a STEM job."
+pj.fit_3,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - There is a good match between the requirements of a STEM job and my skills."
+pj.fit_4,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - My personality is a good match for a STEM job."
+pj.fit_5,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am the right type of person for STEM work."
+confidence_1,Please indicateI feel confident in my development of useful skills.
+confidence_2,"Please indicate the extent to which you agree or disagree with each item below. As a result of my STEM courses…
+Note: STEM = Science, Technology, Engineering, Math. - I feel confident that I can advance to the next level of STEM."
+confidence_3,"Please indicate the extent to which you agree or disagree with each item below. As a result of my STEM courses…
+Note: STEM = Science, Technology, Engineering, Math. - I feel confident in my ability to be successful in STEM career."
+selfeff_1,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - When I make plans related to STEM, I am certain I can make them work."
+selfeff_2,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - One of my problems is that I cannot get down to work on STEM-related tasks when I should."
+selfeff_3,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - If I can’t do a STEM-related task the first time, I keep trying until I can."
+selfeff_4,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - When I set important STEM-related goals for myself, I rarely achieve them."
+selfeff_5,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I like STEM."
+selfeff_6,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM is appealing to me."
+selfeff_7,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM is important to me."
+selfeff_8,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel there is a need for STEM."
+selfeff_9,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do not need STEM."
+selfeff_10,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - It is valuable for me to learn STEM."
+selfeff_11,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - STEM is good for me."
+selfeff_12,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do not care about STEM."
+selfeff_13,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I will continue to enjoy STEM."
+selfeff_14,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am not interested in a career involving STEM."
+selfeff_15,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am interested in alternative programs in STEM."
+selfeff_16,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I would like to learn more about STEM."
+selfeff_17,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I do not wish to continue my education in STEM."
+selfeff_18,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am committed to learning STEM."
+dd.interest,"In general, how confident do you feel about your STEM performance?"
+dd.graduate,How likely are you to pursue graduate study in STEM (master’s or PhD)?
+dd.prof,How likely are you to pursue a professional job in STEM?
+dd.gender.good,"Do you think of mostly men, equal numbers of men and women, or mostly women when you think of people who are very good at STEM?"
+dd.gender.career,"Do you think of mostly men, equal numbers of men and women, or mostly women when you think of people who have careers in STEM?"
+dd.important,How important is STEM to you?
+dd.useful,How useful is STEM to you?
+dd.care,How much do you care about doing well in STEM?
+dd.school_1,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - My STEM related classes this year are likely to be very difficult."
+dd.school_2,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel worried about my STEM related classes this year."
+dd.school_3,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel stressed about my STEM related classes this year."
+dd.school_4,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel unsure about my STEM related classes this year."
+dd.school_5,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel anxious about my STEM related classes this year."
+dd.school_6,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I have the basic skills and abilities to be successful in my STEM related classes this year."
+dd.school_7,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I will be able to overcome any difficulties I experience in my STEM related classes this year."
+dd.school_8,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I have what it takes to handle my STEM related classes this year."
+dd.school_9,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I am prepared to deal with my STEM related classes this year."
+dd.school_10,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel confident about my STEM related classes this year."
+dd.school_11,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel connected to my peers in STEM."
+dd.school_12,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel accepted by my peers in STEM."
+dd.school_13,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel like an outsider among my peers in STEM."
+dd.school_14,"Please indicate the extent to which you agree or disagree with each item below. Note: STEM = Science, Technology, Engineering, Math. - I feel invisible among my peers in STEM."
+dd.major,How often do you think about changing your major to something other than STEM?
+gender.belief_1,"Please indicate the extent to which you agree or disagree with each item
+ below. Note: STEM = Science, Technology, Engineering, Math. - Most women can make it in STEM if they try."
+gender.belief_2,"Please indicate the extent to which you agree or disagree with each item
+ below. Note: STEM = Science, Technology, Engineering, Math. - The average female STEM researcher is as competent as the average male STEM researcher."
+gender.belief_3,"Please indicate the extent to which you agree or disagree with each item
+ below. Note: STEM = Science, Technology, Engineering, Math. - Women have made important contributions to STEM."
+gender.belief_4,"Please indicate the extent to which you agree or disagree with each item
+ below. Note: STEM = Science, Technology, Engineering, Math. - Gender equality has been achieved in STEM."
+suspicion,What do you think the purpose of this study was?
+manip.gender,What was the gender of the researcher in the article?
+manip.image,What was the image in the article?
+major,What is your major and/or intended major? (check all that apply) - Selected Choice
+major_58_TEXT,What is your major and/or intended major? (check all that apply) - Other (please specify): - Text
+stem.major,Which of the following majors do you consider STEM? (check all that apply) - Selected Choice
+stem.major_58_TEXT,Which of the following majors do you consider STEM? (check all that apply) - Other (please specify): - Text
+semester,For how many semesters have you been a student at Rice University?
+stem.classes.num,How many STEM classes have you taken at Rice University?
+stem.classes.list,"Please list the STEM classes you have taken at Rice University by their course number (separated by semicolons).
+Example: CHEM 121; CHEM 122; PHYS 101"
+psych485,Are you enrolled in Psychology 485?
+email,"In order to compensate you for your time, please enter your email address below. This is where we will send your $10 online Amazon gift card. If you are not comfortable doing so and would instead like to remain anonymous, you may create a new gmail account to which you'd like the gift card to be sent."

@@ -1,7 +1,7 @@
 {\rtf1\ansi\deff0 {\fonttbl {\f0 Times New Roman;}}
 {\pard Table XX \par}
 {\pard  \par}
-{\pard\i Fixed-Effects ANOVA results using Identification with STEM as the criterion
+{\pard\i Fixed-Effects ANOVA results using z.pj.fit.all as the criterion
 \par}
 {\pard  \par}
 {
@@ -51,11 +51,11 @@
 \clbrdrt\brdrw15\brdrs
 \clvertalc\cellx9806 
 \pard\sa0\sb0\intbl\qr{(Intercept)}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.03}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.01}\cell
 \pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.03}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.03}\cell
-\pard\sa0\sb0\intbl\qc{.856}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.01}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.01}\cell
+\pard\sa0\sb0\intbl\qc{.922}\cell
 \pard\sa0\sb0\intbl\qc{}\cell
 \pard\sa0\sb0\intbl\qc{}\cell
 \row
@@ -70,12 +70,12 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.71}\cell
-\pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.35}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.36}\cell
-\pard\sa0\sb0\intbl\qc{.700}\cell
+\pard\sa0\sb0\intbl\qr{image.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.19}\cell
+\pard\sa0\sb0\intbl\qc{1}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.19}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.21}\cell
+\pard\sa0\sb0\intbl\qc{.650}\cell
 \pard\sa0\sb0\intbl\qc{.00}\cell
 \pard\sa0\sb0\intbl\qc{[.00, .01]}\cell
 \row
@@ -90,14 +90,14 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Participant gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.25}\cell
+\pard\sa0\sb0\intbl\qr{gender.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.00}\cell
 \pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.25}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.25}\cell
-\pard\sa0\sb0\intbl\qc{.621}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.00}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.00}\cell
+\pard\sa0\sb0\intbl\qc{.990}\cell
 \pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .01]}\cell
+\pard\sa0\sb0\intbl\qc{[.00, 1.00]}\cell
 \row
 }
 {
@@ -110,14 +110,14 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Image condition`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.62}\cell
+\pard\sa0\sb0\intbl\qr{participant.gender}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{7.37}\cell
 \pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.62}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.62}\cell
-\pard\sa0\sb0\intbl\qc{.432}\cell
-\pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{7.37}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{7.80}\cell
+\pard\sa0\sb0\intbl\qc{.006}\cell
+\pard\sa0\sb0\intbl\qc{.02}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .06]}\cell
 \row
 }
 {
@@ -130,34 +130,34 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.36}\cell
-\pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.36}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.35}\cell
-\pard\sa0\sb0\intbl\qc{.552}\cell
-\pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
-\row
-}
-{
-\trowd \trgaph100
-\clvertalc\cellx1368 
-\clvertalc\cellx2664 
-\clvertalc\cellx3355 
-\clvertalc\cellx4651 
-\clvertalc\cellx6206 
-\clvertalc\cellx7070 
-\clvertalc\cellx8438 
-\clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Participant gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.63}\cell
+\pard\sa0\sb0\intbl\qr{article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.89}\cell
 \pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.81}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.82}\cell
-\pard\sa0\sb0\intbl\qc{.443}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.45}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.47}\cell
+\pard\sa0\sb0\intbl\qc{.626}\cell
+\pard\sa0\sb0\intbl\qc{.00}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1368 
+\clvertalc\cellx2664 
+\clvertalc\cellx3355 
+\clvertalc\cellx4651 
+\clvertalc\cellx6206 
+\clvertalc\cellx7070 
+\clvertalc\cellx8438 
+\clvertalc\cellx9806 
+\pard\sa0\sb0\intbl\qr{image.cond x gender.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{3.50}\cell
+\pard\sa0\sb0\intbl\qc{1}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{3.50}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{3.70}\cell
+\pard\sa0\sb0\intbl\qc{.055}\cell
 \pard\sa0\sb0\intbl\qc{.01}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .04]}\cell
 \row
 }
 {
@@ -170,34 +170,14 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Image condition`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{2.23}\cell
-\pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.11}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{1.11}\cell
-\pard\sa0\sb0\intbl\qc{.330}\cell
-\pard\sa0\sb0\intbl\qc{.01}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .03]}\cell
-\row
-}
-{
-\trowd \trgaph100
-\clvertalc\cellx1368 
-\clvertalc\cellx2664 
-\clvertalc\cellx3355 
-\clvertalc\cellx4651 
-\clvertalc\cellx6206 
-\clvertalc\cellx7070 
-\clvertalc\cellx8438 
-\clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Participant gender` x `Image condition`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.57}\cell
+\pard\sa0\sb0\intbl\qr{image.cond x participant.gender}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.00}\cell
 \pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.57}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.57}\cell
-\pard\sa0\sb0\intbl\qc{.450}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.00}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.00}\cell
+\pard\sa0\sb0\intbl\qc{.977}\cell
 \pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
+\pard\sa0\sb0\intbl\qc{[.00, 1.00]}\cell
 \row
 }
 {
@@ -210,32 +190,12 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.28}\cell
-\pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.64}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.64}\cell
-\pard\sa0\sb0\intbl\qc{.529}\cell
-\pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
-\row
-}
-{
-\trowd \trgaph100
-\clvertalc\cellx1368 
-\clvertalc\cellx2664 
-\clvertalc\cellx3355 
-\clvertalc\cellx4651 
-\clvertalc\cellx6206 
-\clvertalc\cellx7070 
-\clvertalc\cellx8438 
-\clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Participant gender` x `Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.28}\cell
+\pard\sa0\sb0\intbl\qr{gender.cond x participant.gender}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.20}\cell
 \pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.28}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.28}\cell
-\pard\sa0\sb0\intbl\qc{.599}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.20}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.21}\cell
+\pard\sa0\sb0\intbl\qc{.647}\cell
 \pard\sa0\sb0\intbl\qc{.00}\cell
 \pard\sa0\sb0\intbl\qc{[.00, .01]}\cell
 \row
@@ -250,14 +210,14 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Image condition` x `Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.03}\cell
-\pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.03}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.03}\cell
-\pard\sa0\sb0\intbl\qc{.858}\cell
+\pard\sa0\sb0\intbl\qr{image.cond x article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.04}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.02}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.02}\cell
+\pard\sa0\sb0\intbl\qc{.979}\cell
 \pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .01]}\cell
+\pard\sa0\sb0\intbl\qc{[.00, 1.00]}\cell
 \row
 }
 {
@@ -270,12 +230,32 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Participant gender` x `Image condition`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{2.91}\cell
+\pard\sa0\sb0\intbl\qr{gender.cond x article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{5.44}\cell
 \pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.46}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{1.45}\cell
-\pard\sa0\sb0\intbl\qc{.235}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{2.72}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{2.88}\cell
+\pard\sa0\sb0\intbl\qc{.058}\cell
+\pard\sa0\sb0\intbl\qc{.02}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .05]}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1368 
+\clvertalc\cellx2664 
+\clvertalc\cellx3355 
+\clvertalc\cellx4651 
+\clvertalc\cellx6206 
+\clvertalc\cellx7070 
+\clvertalc\cellx8438 
+\clvertalc\cellx9806 
+\pard\sa0\sb0\intbl\qr{participant.gender x article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{3.40}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.70}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{1.80}\cell
+\pard\sa0\sb0\intbl\qc{.168}\cell
 \pard\sa0\sb0\intbl\qc{.01}\cell
 \pard\sa0\sb0\intbl\qc{[.00, .03]}\cell
 \row
@@ -290,14 +270,14 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Participant gender` x `Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.64}\cell
-\pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.82}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.82}\cell
-\pard\sa0\sb0\intbl\qc{.442}\cell
+\pard\sa0\sb0\intbl\qr{image.cond x gender.cond x participant.gender}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{2.15}\cell
+\pard\sa0\sb0\intbl\qc{1}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{2.15}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{2.27}\cell
+\pard\sa0\sb0\intbl\qc{.133}\cell
 \pard\sa0\sb0\intbl\qc{.01}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .03]}\cell
 \row
 }
 {
@@ -310,54 +290,74 @@
 \clvertalc\cellx7070 
 \clvertalc\cellx8438 
 \clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Image condition` x `Scientist gender`}\cell
+\pard\sa0\sb0\intbl\qr{image.cond x gender.cond x article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.49}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.24}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.26}\cell
+\pard\sa0\sb0\intbl\qc{.774}\cell
+\pard\sa0\sb0\intbl\qc{.00}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .01]}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1368 
+\clvertalc\cellx2664 
+\clvertalc\cellx3355 
+\clvertalc\cellx4651 
+\clvertalc\cellx6206 
+\clvertalc\cellx7070 
+\clvertalc\cellx8438 
+\clvertalc\cellx9806 
+\pard\sa0\sb0\intbl\qr{image.cond x participant.gender x article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{7.03}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{3.52}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{3.72}\cell
+\pard\sa0\sb0\intbl\qc{.025}\cell
+\pard\sa0\sb0\intbl\qc{.02}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .05]}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1368 
+\clvertalc\cellx2664 
+\clvertalc\cellx3355 
+\clvertalc\cellx4651 
+\clvertalc\cellx6206 
+\clvertalc\cellx7070 
+\clvertalc\cellx8438 
+\clvertalc\cellx9806 
+\pard\sa0\sb0\intbl\qr{gender.cond x participant.gender x article.cond}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{5.42}\cell
+\pard\sa0\sb0\intbl\qc{2}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{2.71}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{2.87}\cell
+\pard\sa0\sb0\intbl\qc{.058}\cell
+\pard\sa0\sb0\intbl\qc{.02}\cell
+\pard\sa0\sb0\intbl\qc{[.00, .05]}\cell
+\row
+}
+{
+\trowd \trgaph100
+\clvertalc\cellx1368 
+\clvertalc\cellx2664 
+\clvertalc\cellx3355 
+\clvertalc\cellx4651 
+\clvertalc\cellx6206 
+\clvertalc\cellx7070 
+\clvertalc\cellx8438 
+\clvertalc\cellx9806 
+\pard\sa0\sb0\intbl\qr{image.cond x gender.cond x participant.gender x article.cond}\cell
 \pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.13}\cell
 \pard\sa0\sb0\intbl\qc{2}\cell
 \pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.07}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.06}\cell
-\pard\sa0\sb0\intbl\qc{.939}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.07}\cell
+\pard\sa0\sb0\intbl\qc{.934}\cell
 \pard\sa0\sb0\intbl\qc{.00}\cell
 \pard\sa0\sb0\intbl\qc{[.00, .00]}\cell
-\row
-}
-{
-\trowd \trgaph100
-\clvertalc\cellx1368 
-\clvertalc\cellx2664 
-\clvertalc\cellx3355 
-\clvertalc\cellx4651 
-\clvertalc\cellx6206 
-\clvertalc\cellx7070 
-\clvertalc\cellx8438 
-\clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Participant gender` x `Image condition` x `Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.60}\cell
-\pard\sa0\sb0\intbl\qc{1}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.60}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.60}\cell
-\pard\sa0\sb0\intbl\qc{.440}\cell
-\pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
-\row
-}
-{
-\trowd \trgaph100
-\clvertalc\cellx1368 
-\clvertalc\cellx2664 
-\clvertalc\cellx3355 
-\clvertalc\cellx4651 
-\clvertalc\cellx6206 
-\clvertalc\cellx7070 
-\clvertalc\cellx8438 
-\clvertalc\cellx9806 
-\pard\sa0\sb0\intbl\qr{`Article topic` x `Participant gender` x `Image condition` x `Scientist gender`}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.94}\cell
-\pard\sa0\sb0\intbl\qc{2}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.47}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx622{0.47}\cell
-\pard\sa0\sb0\intbl\qc{.625}\cell
-\pard\sa0\sb0\intbl\qc{.00}\cell
-\pard\sa0\sb0\intbl\qc{[.00, .02]}\cell
 \row
 }
 {
@@ -379,9 +379,9 @@
 \clbrdrb\brdrw15\brdrs
 \clvertalc\cellx9806 
 \pard\sa0\sb0\intbl\qr{Error}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{312.64}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{294.90}\cell
 \pard\sa0\sb0\intbl\qc{312}\cell
-\pard\sa0\sb0\intbl\tqdec\tldot\tx778{1.00}\cell
+\pard\sa0\sb0\intbl\tqdec\tldot\tx778{0.95}\cell
 \pard\sa0\sb0\intbl\tqdec\tldot\tx622{}\cell
 \pard\sa0\sb0\intbl\qc{}\cell
 \pard\sa0\sb0\intbl\qc{}\cell

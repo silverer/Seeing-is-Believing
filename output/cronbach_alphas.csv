@@ -1,5 +1,2 @@
-"","alphas"
-"lead.all",0.953597313007743
-"interest.all",0.941940791896307
-"dd.belonging.all",0.868201338839632
-"dd.id.all",0.820596473052141
+"","interest.all","lead.all","dd.id.all","dd.belonging.all","dd.threat.all","dd.challenge.all","dd.career.all","selfeff.all","pj.fit.all","confidence.all","gender.belief.all"
+"1",0.941940791896307,0.947645979047574,0.820596473052141,0.868201338839632,0.90365846950639,0.944607265695946,0.549052261560273,0.7005286594085,0.950798142174439,0.927802540834846,0.677995898532676

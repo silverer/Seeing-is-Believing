@@ -1,3 +1,6 @@
+
+src/TEST*
+src/OLD*
 src/__pycache__/*
 src/scratch.ipynb
 src/.DS_Store

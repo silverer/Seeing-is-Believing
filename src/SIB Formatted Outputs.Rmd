@@ -14,67 +14,153 @@ font-family: Times New Roman
 knitr::opts_chunk$set(echo = FALSE)
 library(knitr)
 library(cowplot)
-source('printout_backend.R')
-
 ```
+
+```{r}
+source('printout_backend.R')
+```
+
 
 ## 3-way interactions
 
 Knitting this file to a Word document produces formatted outputs that can be easily copied and pasted into a manuscript write-up file.
 
+```{r}
+alphas <- read.csv(paste0("../",output, 'cronbach_alphas.csv'))
+variable_key <- read.csv(paste0("../",experiment_data, "/variable_names_key.csv"))
+variable_key$scale_stem[variable_key$clean_varname=="dd.id"] <- "dd.id"
+exclusion_tracker <- read.csv(paste0("../", output, "exclusion_tracker.csv"))
+total.excluded <- exclusion_tracker$original_length-nrow(sib.og)
+age.string <- paste0("_M_ age (SD) = ", 
+                     number(mean(sib.og$age, na.rm = T),accuracy = .01),
+                     " years (", 
+                     number(sd(sib.og$age, na.rm=T), accuracy = .01),
+                     ")")
+race.table <- data.frame(table(sib.og$race.cat.collapse))
+race.table$Var1 <- str_replace(str_replace(str_replace(str_replace(race.table$Var1, 
+                                                       "/African American", ""),
+                               "All", "all"),
+                               "White", "white"),
+                               "Asian", "Asian American")
+race.table["percent"] <- percent(race.table$Freq/sum(race.table$Freq),
+                                 accuracy = 1)
+race.table <- race.table %>% arrange(desc(Freq))
+race.string <- ""
+cat("  \n")
+for(i in 1:nrow(race.table)){
+  if(i < nrow(race.table)){
+    race.string <- paste0(race.string, race.table$percent[i], 
+                          " ", race.table$Var1[i],", ")
+  }
+  else{
+    race.string <- paste0(race.string, race.table$percent[i], 
+                          " ", race.table$Var1[i])
+  }
+}
 
-```{r plots.all, fig.width=8,echo=FALSE,message=FALSE,results="asis"}
-vnames <- c(z.lead.all = 'STEM Career Interest',
-                     z.interest.all = 'General STEM Interest',
-                     z.dd.belonging.all = 'STEM Belonging',
-                     z.dd.id.all = 'Identification with STEM')
+gender.string <- paste0(percent(nrow(sib.og %>% filter(participant.gender=="Women"))/nrow(sib.og),
+                                accuracy = 1), " women")
+```
 
-oc <- c('z.lead.all', 'z.interest.all',
-        'z.dd.belonging.all',
-        'z.dd.id.all')
+We recruited `r exclusion_tracker$original_length` participants from an undergraduate psychology subject pool to participate in an online study. Of these participants, `r total.excluded` were excluded from analyses because they did not finish the survey, were enrolled as students in the research lab where the study was conducted, did not identify as men or women, and/or failed manipulation checks. This resulted in a final dataset of `r nrow(sib.og)` participants, `r age.string`, `r race.string`, `r gender.string`.
 
 
-pgender.index <- 2
-image.index <- 3
-sci.gender.index <- 4
-interaction.index <- 8
+```{r fig.width=8,echo=FALSE,message=FALSE,results="asis"}
+vnames <- c(z.lead.all = 'STEM career interest',
+            z.interest.all = 'General STEM interest',
+            z.dd.belonging.all = 'STEM belonging',
+            z.dd.id.all = 'Identification with STEM',
+            z.dd.threat.all = "Threat",
+            z.dd.challenge.all = "Challenge",
+            z.selfeff.all = "STEM self-efficacy",
+            z.pj.fit.all = "Person-job fit with STEM",
+            z.confidence.all = "STEM confidence")
+scale.stems <- variable_key %>% 
+  filter(!is.na(scale_stem)) %>% 
+  filter(!duplicated(scale_stem)) %>% 
+  filter(str_detect(scale_stem, "TEXT")==F)
+scale.stems <- scale.stems$scale_stem
+oc <- names(vnames)
+for(i in 1:length(scale.stems)){
+  cat("  \n")
+  tmp <- variable_key %>% 
+    filter(str_starts(clean_varname, 
+                      scale.stems[i]))
+  cat(paste0(scale.stems[i], " was measured using a ", nrow(tmp), 
+             "-item scale (CITE). Responses were measured on a 7-point Likert-type scale (1 = _strongly disagree_, 7 = _strongly agree_, ",
+             "Cronbach's $\\alpha$ = ", 
+             number(alphas[[paste0(scale.stems[i], ".all")]], 
+                    accuracy = .01), ". "))
+  cat(paste0('A sample item is: "', str_trim(str_replace(tmp$clean_variable_desc[1],
+                                                "Please indicate", "")), '"'))
+}
+```
+
+
+
+```{r, fig.width=8,echo=FALSE,message=FALSE,results="asis"}
+# vnames <- c(z.lead.all = 'STEM Career Interest',
+#             z.interest.all = 'General STEM Interest',
+#             z.dd.belonging.all = 'STEM Belonging',
+#             z.dd.id.all = 'Identification with STEM',
+#             z.dd.threat.all = "Threat",
+#             z.dd.challenge.all = "Challenge",
+#             z.selfeff.all = "STEM Self-Efficacy",
+#             z.pj.fit.all = "Person-Job Fit",
+#             z.confidence.all = "Confidence")
+
+vnames <- c(z.lead.all = 'STEM career interest',
+            z.interest.all = 'general STEM interest',
+            z.dd.belonging.all = 'STEM belonging',
+            z.dd.id.all = 'identification with STEM',
+            z.dd.threat.all = "threat",
+            z.dd.challenge.all = "challenge",
+            z.selfeff.all = "STEM self-efficacy",
+            z.pj.fit.all = "person-job fit with STEM",
+            z.confidence.all = "STEM confidence")
+
 for(o in oc){
-  
-  cat("  \n###",  vnames[[o]], "  \n")
-  for(i in 1:nrow(aov_results[[o]])){
-    cat(aov_results[[o]]$Predictor[i])
-    cat("  \n")
-    cat("  \n")
-    cat(aov_results[[o]]$stat_string[i])
-    cat("  \n")
+  cat("  \n")
+  cat(paste0("  ## ",  vnames[[o]], "  \n"))
+  tmp.aov <- aov_results[[o]]
+  for(i in 2:nrow(tmp.aov)-1){
+    if(str_detect(tmp.aov$Predictor[i], "X")){
+      if(as.numeric(tmp.aov$p[i])<.05){
+        cat("  \n")
+        cat(paste0("There was a significant ", str_to_lower(tmp.aov$Predictor[i]),
+                   " interaction effect on ", vnames[[o]], ", ",
+                   tmp.aov$stat_string[i], "."))
+      }
+      else{
+        cat("  \n")
+        cat(paste0("The ", str_to_lower(tmp.aov$Predictor[i]),
+                   " interaction effect on ", vnames[[o]], 
+                   " was not significant, ",
+                   tmp.aov$stat_string[i], "."))
+      }
+      
+    }
+    else{
+      if(as.numeric(tmp.aov$p[i])<.05){
+        cat("  \n")
+        cat(paste0("There was a significant main effect of ", str_to_lower(tmp.aov$Predictor[i]),
+                   " on ", vnames[[o]], ", ",
+                   tmp.aov$stat_string[i], "."))
+      }
+      else{
+        cat("  \n")
+        cat(paste0("The main effect of ", str_to_lower(tmp.aov$Predictor[i]),
+                   " on ", vnames[[o]], " was not significant, ",
+                   tmp.aov$stat_string[i], "."))
+      }
+    }
   }
-  
-  if(as.numeric(aov_results[[o]]$p[interaction.index])< 0.05){
-    cat("  \n")
-    cat('There was a significant 3-way interaction between image condition, scientist gender, and participant gender, ', aov_results[[o]]$stat_string[interaction.index], '.')
-    cat("  \n")
-    cat("  \n")
-    print(plots.3way[[o]])
-    cowplot::save_plot(paste0("../plots/", o, ".png"), plots.3way[[o]], base_width = 8.5, base_height = 10)
-    cat("  \n")
-    cat("  \n")
-    
-  }else if(as.numeric(aov_results[[o]]$p[interaction.index])< 0.1){
-    cat("  \n")
-    cat('There was a marginal 3-way interaction between image condition, scientist gender, and participant gender, ', aov_results[[o]]$stat_string[interaction.index], '.')
-    cat("  \n")
-    cat("  \n")
-    print(plots.3way[[o]])
-    cowplot::save_plot(paste0("../plots/", o, ".png"), plots.3way[[o]], base_width = 8.5, base_height = 10)
-    cat("  \n")
-    cat("  \n")
-  }else{
-    cat("  \n")
-    cat('The 3-way interaction between image condition, scientist gender, and participant gender was not significant, ', aov_results[[o]]$stat_string[interaction.index], '.')
-    cat("  \n")
-    cat("  \n")
-  }
-  
+  cat("  \n")
+  print(plots.3way[[o]])
+  cowplot::save_plot(paste0("../plots/", o, ".png"),
+                     plots.3way[[o]], base_width = 8.5,
+                     base_height = 10)
+
   cat("  \n")
   
   
@@ -83,21 +169,40 @@ for(o in oc){
 cowplot::save_plot("../plots/multipanel.eps", figure,
                    base_height = 6, base_width = 8,
                    dpi=400, family = "Times")
+cowplot::save_plot("../plots/multipanel.png", figure,
+                   base_height = 6, base_width = 8,
+                   dpi=400, family = "Times")
 ```
+
+Big ANOVA table:
+
+```{r,results="asis"}
+aov_tab <- aov_result_df %>% 
+  filter(Predictor != "(Intercept)") %>% 
+  filter(Predictor != "Error")
+aov_tab <- aov_tab %>% 
+  mutate(across(everything(),
+                ~str_replace_all(.x, "_F_[(]1, 328[)] = ", ""))) %>% 
+  mutate(across(everything(),
+                ~str_replace_all(.x, " = 0.000", " < 0.01"))) 
+cat("  \n")
+print(knitr::kable(aov_tab))
+cat("  \n")
+```
+
 
 Output pairwise contrast results:
 
 ```{r,echo=FALSE,message=FALSE,results="asis"}
-
+pairwise_df <- pairwise_df %>% 
+  mutate(pretty.outcome = recode(outcome, !!!vnames),
+         group1 = unlist(str_split(new.contrast, " -"))[1],
+         group2 = unlist(str_split(new.contrast, "- "))[2])
 for(n in new.rows){
   this_contr <- pairwise_df %>% dplyr::filter(new.contrast == n)
-  this_contr <- this_contr %>% dplyr::select(new.contrast, formatted.result, outcome)
+  this_contr <- this_contr %>% dplyr::select(new.contrast, formatted.result, pretty.outcome)
   print(knitr::kable(this_contr))
   cat("  \n")
 }
 
 ```
-
-
-
-
