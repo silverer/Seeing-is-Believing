@@ -50,7 +50,8 @@ apa.cor.table(tmp.sib %>%
               filename = '../output/pearson_correlations.doc',
               table.number = 2)
 
-
+rev.vnames.og <- og.outcomes
+names(rev.vnames.og) <- names(rev.vnames)
 headerStyle <- createStyle(
   fontSize = 12, fontName = "Times New Roman", halign = "center",
   border = "bottom"
@@ -92,8 +93,8 @@ saveFmtdReg <- function(regDf, sheetName, fname){
 }
 
 cor_tab <- apa.cor.table(tmp.sib %>% 
-                           select(all_of(vnames)) %>% 
-                           rename(!!!rev.vnames))
+                           select(all_of(og.outcomes)) %>% 
+                           rename(!!!rev.vnames.og))
 cor_tab <- data.frame(cor_tab$table.body)
 cor_tab <- cor_tab %>% 
   filter(Variable != " ")
@@ -280,6 +281,13 @@ for(o in outcomes){
 }
 
 #format outputs
+pairwise_df["formatted.result"] <- mapply(statstring::format_pairwise_comparison,
+                                          t_stat = pairwise_df$t.ratio,
+                                          df = pairwise_df$df,
+                                          p_val = pairwise_df$adj.p.value,
+                                          mdiff = pairwise_df$estimate,
+                                          lci = pairwise_df$lower.CL,
+                                          uci = pairwise_df$upper.CL)
 pairwise_df$lower.CL <- number(pairwise_df$lower.CL, accuracy = 0.01)
 pairwise_df$upper.CL <- number(pairwise_df$upper.CL, accuracy = 0.01)
 pairwise_df$estimate <- number(pairwise_df$estimate, accuracy = 0.01)
@@ -318,12 +326,19 @@ h3c_table
 
 
 #robustness check: does using the first vs. second set of interest items change the overall results?
-
+sib.og["participant.id"] <- 1:nrow(sib.og)
 long_df <- sib.og %>% 
   pivot_longer(all_of(c("selfeff.interest.rep.items",
                         "interest.rep.items"))) %>% 
-  select(name, value)
-long_df$name <- factor(long_df$name)
+  select(name, value, participant.gender, gender.cond,image.cond, participant.id)
+long_df$participant.gender <- factor(long_df$participant.gender)
+long_df$gender.cond<-factor(long_df$gender.cond)
+long_df$image.cond<-factor(long_df$image.cond)
+long_df$name <- ifelse(long_df$name=="interest.rep.items",
+                       "T1", "T2")
+long_df$name <- factor(long_df$name, levels = c("T1",
+                                                "T2"))
+
 #' there's a significant difference between people's responses to items 5-18 on the first vs. second time it was administered
 #' the "interest" scale was given before the "self efficacy" scale
 t.test(long_df$value~long_df$name,
@@ -332,6 +347,99 @@ t.test(long_df$value~long_df$name,
 long_df %>% 
   group_by(name) %>% 
   summarise(mean(value, na.rm=T))
+
+mod <- long_df %>% 
+  anova_test(dv = value,
+             within = name,
+             wid = participant.id,
+             between = c(participant.gender,gender.cond,image.cond),
+             type = 3)
+get_anova_table(mod)
+
+long_df %>% 
+  filter(participant.gender=="Women") %>% 
+  group_by(gender.cond, image.cond, name) %>% 
+  summarise(m = mean(value)) %>% 
+  ungroup() %>% 
+  ggplot() +
+  aes(x = name, group = gender.cond,
+      y = m)+
+  geom_point()+
+  geom_line()+
+  aes(linetype=gender.cond)+
+  facet_wrap(~`image.cond`)+
+  theme(
+    # Remove panel grid lines
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.text.x = element_text(size = 12, colour = "black"),
+    strip.background=element_rect(fill="white",color='black'),
+    # Remove panel background
+    panel.background = element_blank(),
+    panel.border = element_rect(fill=NA),
+    text=element_text(family="Times", size=12),
+    axis.text.x.bottom = element_text(family = "Times", size = 12),
+    # Add axis line
+    axis.line = element_line(colour = "black"),
+    legend.key = element_rect(fill="white")
+  )
+
+
+
+#effectively T2 - T1
+sib.og["interest.diff.scores"] <- sib.og$selfeff.interest.rep.items-sib.og$interest.rep.items
+sib.og %>% 
+  group_by(participant.gender, gender.cond, image.cond) %>% 
+  summarise(m = mean(interest.diff.scores)) %>% 
+  ungroup()
+
+tmp.mod <- sib.og %>% anova_test(dv=interest.diff.scores,
+                              between = c(participant.gender,
+                                          image.cond,
+                                          gender.cond),
+                              type = 3)
+get_anova_table(tmp.mod)
+tmp.em <- emmeans(lm(interest.diff.scores~participant.gender*image.cond*gender.cond, sib.og),
+                  indep.vars.og)
+
+tmp.pairs <- data.frame(pairs(tmp.em, adjust="none"))
+tmp.pairs <- tmp.pairs %>%
+  dplyr::filter(str_detect(contrast, "Men")==F)
+tmp.pairs <- adjust_pvalue(tmp.pairs, p.col="p.value",
+                            output.col="adj.p.value", method="fdr")
+data.frame(tmp.em) %>% 
+  mutate(gender.cond = str_replace(gender.cond, " scientist", "")) %>%
+  ggplot() +
+  aes(x = gender.cond, group = image.cond,
+      y = emmean) +
+  geom_point()+
+  geom_line()+
+  geom_errorbar(aes(ymin=emmean-SE,
+                    ymax=emmean+SE),
+                width = 0.1, alpha = 0.5)+
+  aes(linetype=image.cond)+
+  labs(linetype = "Image Condition")+
+  ggtitle("Difference in STEM Interest\nby Time and Condition")+
+  ylab("T2 - T1 STEM Interest")+
+  xlab("Scientist Gender")+
+  facet_wrap(~participant.gender)+
+  theme(
+    # Remove panel grid lines
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.text.x = element_text(size = 12, colour = "black"),
+    strip.background=element_rect(fill="white",color='black'),
+    # Remove panel background
+    panel.background = element_blank(),
+    panel.border = element_rect(fill=NA),
+    text=element_text(family="Times", size=12),
+    axis.text.x.bottom = element_text(family = "Times", size = 12),
+    # Add axis line
+    axis.line = element_line(colour = "black"),
+    legend.key = element_rect(fill="white")
+  )
+
+
 
 mod <- lm(selfeff.interest.rep.items~participant.gender*image.cond*gender.cond,
           data = sib.og)
