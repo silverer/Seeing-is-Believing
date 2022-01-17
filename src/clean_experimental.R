@@ -131,7 +131,7 @@ sib$interest.all<-rowMeans(interest, na.rm=TRUE)
 
 #leadership ----
 #no reverse
-#one item (item 7) on the stem career scale was also an accidental duplicate
+#note: one item (item 7) on the stem career scale was also an accidental duplicate
 lead<-sib %>% 
   select(starts_with("lead_")) %>% 
   select(!ends_with("_7"))
@@ -363,10 +363,20 @@ variable_key$clean_varname <- ifelse(variable_key$clean_varname %in% colnames(dd
                                           "dd.belonging"),
                                      variable_key$clean_varname)
 variable_key["desc_lower"] <-str_trim(str_to_lower(variable_key$clean_variable_desc))
-drop_selfeff <- rep("selfeff_", 14)
-drop_selfeff <- paste0(drop_selfeff, seq(4, 18,1))
-variable_key <- variable_key %>% 
-  filter(clean_varname %in% drop_selfeff == F) %>% 
+duplicate_items <- variable_key %>% 
+  filter(duplicated(desc_lower)) %>% 
+  filter(str_detect(desc_lower, "timing")==F)
+duplicate_inspect <- variable_key %>% 
+  filter(desc_lower %in% duplicate_items$desc_lower)
+duplicate_inspect
+nrow(duplicate_inspect %>% filter(str_starts(clean_varname,"selfeff")))
+#looks like most of the items on the self-efficacy scale were accidental duplicates
+#one item on the stem career scale was also an accidental duplicate
+drop_selfeff <- duplicate_inspect %>% filter(str_starts(clean_varname,"selfeff"))
+drop_selfeff <- drop_selfeff$clean_varname
+length(drop_selfeff)
+variable_key <- variable_key %>%
+  filter(clean_varname %in% drop_selfeff == F) %>%
   filter(clean_varname != "lead_7")
 
 variable_key["scale_stem"] <- ifelse(str_detect(variable_key$clean_varname, "_\\d{1,2}"),
@@ -379,14 +389,7 @@ scale.names <- variable_key %>%
   filter(!is.na(scale_stem)&str_detect(scale_stem, "TEXT")==F)
 keep.columns <- scale.names$clean_varname
 
-duplicate_items <- variable_key %>% 
-  filter(duplicated(desc_lower)) %>% 
-  filter(str_detect(desc_lower, "timing")==F)
-duplicate_inspect <- variable_key %>% 
-  filter(desc_lower %in% duplicate_items$desc_lower)
-duplicate_inspect
-#looks like most of the items on the self-efficacy scale were accidental duplicates
-#one item on the stem career scale was also an accidental duplicate
+
 #leadership ----
 #no reverse
 lead<-sib %>% 
