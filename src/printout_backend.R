@@ -356,89 +356,6 @@ mod <- long_df %>%
              type = 3)
 get_anova_table(mod)
 
-long_df %>% 
-  filter(participant.gender=="Women") %>% 
-  group_by(gender.cond, image.cond, name) %>% 
-  summarise(m = mean(value)) %>% 
-  ungroup() %>% 
-  ggplot() +
-  aes(x = name, group = gender.cond,
-      y = m)+
-  geom_point()+
-  geom_line()+
-  aes(linetype=gender.cond)+
-  facet_wrap(~`image.cond`)+
-  theme(
-    # Remove panel grid lines
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    strip.text.x = element_text(size = 12, colour = "black"),
-    strip.background=element_rect(fill="white",color='black'),
-    # Remove panel background
-    panel.background = element_blank(),
-    panel.border = element_rect(fill=NA),
-    text=element_text(family="Times", size=12),
-    axis.text.x.bottom = element_text(family = "Times", size = 12),
-    # Add axis line
-    axis.line = element_line(colour = "black"),
-    legend.key = element_rect(fill="white")
-  )
-
-
-
-#effectively T2 - T1
-sib.og["interest.diff.scores"] <- sib.og$selfeff.interest.rep.items-sib.og$interest.rep.items
-sib.og %>% 
-  group_by(participant.gender, gender.cond, image.cond) %>% 
-  summarise(m = mean(interest.diff.scores)) %>% 
-  ungroup()
-
-tmp.mod <- sib.og %>% anova_test(dv=interest.diff.scores,
-                              between = c(participant.gender,
-                                          image.cond,
-                                          gender.cond),
-                              type = 3)
-get_anova_table(tmp.mod)
-tmp.em <- emmeans(lm(interest.diff.scores~participant.gender*image.cond*gender.cond, sib.og),
-                  indep.vars.og)
-
-tmp.pairs <- data.frame(pairs(tmp.em, adjust="none"))
-tmp.pairs <- tmp.pairs %>%
-  dplyr::filter(str_detect(contrast, "Men")==F)
-tmp.pairs <- adjust_pvalue(tmp.pairs, p.col="p.value",
-                            output.col="adj.p.value", method="fdr")
-data.frame(tmp.em) %>% 
-  mutate(gender.cond = str_replace(gender.cond, " scientist", "")) %>%
-  ggplot() +
-  aes(x = gender.cond, group = image.cond,
-      y = emmean) +
-  geom_point()+
-  geom_line()+
-  geom_errorbar(aes(ymin=emmean-SE,
-                    ymax=emmean+SE),
-                width = 0.1, alpha = 0.5)+
-  aes(linetype=image.cond)+
-  labs(linetype = "Image Condition")+
-  ggtitle("Difference in STEM Interest\nby Time and Condition")+
-  ylab("T2 - T1 STEM Interest")+
-  xlab("Scientist Gender")+
-  facet_wrap(~participant.gender)+
-  theme(
-    # Remove panel grid lines
-    panel.grid.major = element_blank(),
-    panel.grid.minor = element_blank(),
-    strip.text.x = element_text(size = 12, colour = "black"),
-    strip.background=element_rect(fill="white",color='black'),
-    # Remove panel background
-    panel.background = element_blank(),
-    panel.border = element_rect(fill=NA),
-    text=element_text(family="Times", size=12),
-    axis.text.x.bottom = element_text(family = "Times", size = 12),
-    # Add axis line
-    axis.line = element_line(colour = "black"),
-    legend.key = element_rect(fill="white")
-  )
-
 
 
 mod <- lm(selfeff.interest.rep.items~participant.gender*image.cond*gender.cond,
@@ -483,7 +400,7 @@ career_interest <- marginal.means$z.lead.all %>%
                 width = 0.1, alpha = 0.5)+
   aes(linetype=`Image condition`)+
   labs(linetype = "Image Condition")+
-  ggtitle("STEM Career Interest\nby Condition")+
+  ggtitle("STEM Career Interest")+
   ylab("STEM Career Interest")+
   xlab("Scientist Gender")+
   facet_wrap(~`Participant gender`)+
@@ -500,7 +417,8 @@ career_interest <- marginal.means$z.lead.all %>%
     axis.text.x.bottom = element_text(family = "Times", size = 12),
     # Add axis line
     axis.line = element_line(colour = "black"),
-    legend.key = element_rect(fill="white")
+    legend.key = element_rect(fill="white"),
+    legend.box.background = element_rect(color="black")
   )
 
 stem_id <- marginal.means$z.dd.id.all %>%
@@ -519,7 +437,7 @@ stem_id <- marginal.means$z.dd.id.all %>%
                 width = 0.1, alpha = 0.5)+
   aes(linetype=`Image condition`)+
   labs(linetype = "Image Condition")+
-  ggtitle("Identification with STEM\nby Condition")+
+  ggtitle("Identification with STEM")+
   ylab("Identification with STEM")+
   xlab("Scientist Gender")+
   facet_wrap(~`Participant gender`)+
@@ -536,10 +454,18 @@ stem_id <- marginal.means$z.dd.id.all %>%
     axis.text.x.bottom = element_text(family = "Times", size = 12),
     # Add axis line
     axis.line = element_line(colour = "black"),
-    legend.key = element_rect(fill="white")
+    legend.key = element_rect(fill="white"),
+    legend.box.background = element_rect(color="black")
   )
 
-pj_fit <- marginal.means$z.pj.fit.all %>%
+
+figure <- ggarrange(career_interest, stem_id,
+                    labels = c("A", "B"),
+                    ncol = 2, nrow = 1,
+                    legend = "bottom",
+                    common.legend = TRUE)
+#### Make and save the four-panel figure ####
+stem_interest <- marginal.means$z.interest.all %>%
   mutate(`Participant gender` = ifelse(`Participant gender` == "Men",
                                        "Male Participants",
                                        "Female Participants"),
@@ -555,8 +481,8 @@ pj_fit <- marginal.means$z.pj.fit.all %>%
                 width = 0.1, alpha = 0.5)+
   aes(linetype=`Image condition`)+
   labs(linetype = "Image Condition")+
-  ggtitle("STEM Person-Job Fit by Condition")+
-  ylab("Person-Job Fit")+
+  ggtitle("General STEM Interest")+
+  ylab("General STEM Interest")+
   xlab("Scientist Gender")+
   facet_wrap(~`Participant gender`)+
   theme(
@@ -572,13 +498,53 @@ pj_fit <- marginal.means$z.pj.fit.all %>%
     axis.text.x.bottom = element_text(family = "Times", size = 12),
     # Add axis line
     axis.line = element_line(colour = "black"),
-    legend.key = element_rect(fill="white")
+    legend.key = element_rect(fill="white"),
+    legend.box.background = element_rect(color="black")
   )
 
-figure <- ggarrange(career_interest, stem_id,
-                    labels = c("A", "B"),
-                    ncol = 2, nrow = 1,
+stem_belong <- marginal.means$z.dd.belonging.all %>%
+  mutate(`Participant gender` = ifelse(`Participant gender` == "Men",
+                                       "Male Participants",
+                                       "Female Participants"),
+         `Gender condition` = ifelse(`Gender condition`=="Male scientist",
+                                     "Male", "Female")) %>%
+  ggplot() +
+  aes(x = `Gender condition`, group = `Image condition`,
+      y = `Est. marginal mean`) +
+  geom_point()+
+  geom_line()+
+  geom_errorbar(aes(ymin=`Est. marginal mean`-SE,
+                    ymax=`Est. marginal mean`+SE),
+                width = 0.1, alpha = 0.5)+
+  aes(linetype=`Image condition`)+
+  labs(linetype = "Image Condition")+
+  ggtitle("STEM Belongingness")+
+  ylab("STEM Belongingness")+
+  xlab("Scientist Gender")+
+  facet_wrap(~`Participant gender`)+
+  theme(
+    # Remove panel grid lines
+    panel.grid.major = element_blank(),
+    panel.grid.minor = element_blank(),
+    strip.text.x = element_text(size = 12, colour = "black"),
+    strip.background=element_rect(fill="white",color='black'),
+    # Remove panel background
+    panel.background = element_blank(),
+    panel.border = element_rect(fill=NA),
+    text=element_text(family="Times", size=12),
+    axis.text.x.bottom = element_text(family = "Times", size = 12),
+    # Add axis line
+    axis.line = element_line(colour = "black"),
+    legend.key = element_rect(fill="white"),
+    legend.box.background = element_rect(color="black")
+  )
+
+figure.4panel <- ggarrange(career_interest, stem_id,
+                           stem_interest,stem_belong,
+                    labels = c("A", "B", "C", "D"),
+                    ncol = 2, nrow = 2,
                     legend = "bottom",
                     common.legend = TRUE)
 
-
+# save_plot("../plots/multipanel_4panels.png", figure.4panel,
+#           base_width = 8, base_height=10)
