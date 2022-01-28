@@ -546,5 +546,7 @@ figure.4panel <- ggarrange(career_interest, stem_id,
                     legend = "bottom",
                     common.legend = TRUE)
 
-# save_plot("../plots/multipanel_4panels.png", figure.4panel,
-#           base_width = 8, base_height=10)
+save_plot("../plots/multipanel_4panels.png", figure.4panel,
+          base_width = 8, base_height=10)
+save_plot("../plots/multipanel_4panels.tiff", figure.4panel,
+          base_width = 8, base_height=10)
