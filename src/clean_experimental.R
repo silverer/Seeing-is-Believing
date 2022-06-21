@@ -1,5 +1,5 @@
 if (!require("pacman")) install.packages("pacman"); library(pacman)
-pacman::p_load(dplyr, psych,stringr)
+pacman::p_load(tidyverse, psych)
 setwd("~/Documents/Seeing-is-Believing")
 #Data paths for input and output
 source('src/data_io.R')
@@ -10,26 +10,11 @@ nrow(sib)
 #Filter out garbage responses
 sib <- sib[sib$DistributionChannel!="preview" &!is.na(sib$FL_15_DO),]
 
-
 nrow(sib)
-exclusion_tracker <- list()
-exclusion_tracker['original_length'] <- nrow(sib)
 #### Filter people who didn't finish, listed gender other than M/W, or were in research methods class ####
-
-exclusion_tracker['unfinished'] <- nrow(sib %>% filter(Progress != 100))
-sib["exclude_reason"] <- NA
-sib$exclude_reason[sib$Progress != 100] <- "unfinished"
-exclusion_tracker['in_research_methods_class'] <- nrow(sib %>% 
-                                                         filter(in_research_methods_class==T))
+sib$exclude_reason[sib$Finished == 0] <- "unfinished"
 sib$exclude_reason[sib$in_research_methods_class==T] <- "in research methods class"
-# sib<-sib %>% 
-#   filter(Progress == 100 & in_research_methods_class==FALSE)
-# 
-# nrow(sib)
 sib$exclude_reason[(sib$gender > 2 |is.na(sib$gender))]<-"did not identify as women or men"
-exclusion_tracker['not_m_f'] <- nrow(sib %>% filter(gender > 2 | is.na(gender)))
-#sib<-sib[sib$gender==1|sib$gender==2,]
-#nrow(sib)
 
 #### Participant gender variable ####
 #3 is self-describe, 6 is prefer not to say
@@ -102,14 +87,40 @@ sib <- sib %>%
                                     TRUE, FALSE))
 sib$exclude_reason[sib$failed_attn_check==T] <- "failed attention check"
 sib.all <- sib
+
+sib <- sib %>% 
+  mutate(
+    exclude_reason = if_else(
+      Finished == 0,
+      "unfinished", 
+      if_else(
+        in_research_methods_class==T,
+        "in research methods class",
+        if_else(
+          (is.na(gender)|gender>2),
+          "did not identify as women or men",
+          if_else(
+            failed_attn_check == T,
+            "failed attention check", ""
+          )
+        )
+      )
+    )
+  )
+
 fail.table <- table(sib.all$article.image.cond,sib.all$failed_attn_check)
 exclusion_tracker['failed_attn_check'] <- nrow(sib %>% filter(failed_attn_check==TRUE))
+exclusion_tracker <- data.frame(table(sib$exclude_reason))
+exclusion_tracker$Var1 <- as.character(exclusion_tracker$Var1)
+exclusion_tracker$Var1[1] <- "final included"
+exclusion_tracker <- rbind(exclusion_tracker,
+                           c("original total", nrow(sib.all)))
 write.csv(exclusion_tracker, paste0(output, "/exclusion_tracker.csv"))
 sib.excluded <- sib %>% 
-  filter(!is.na(exclude_reason))
+  filter(exclude_reason != "")
 #sib<-sib[sib$stimuli.title.score==1 & sib$manip.gender.score == 1 & sib$manip.image.score == 1,]
 sib <- sib %>% 
-  filter(is.na(exclude_reason))
+  filter(exclude_reason=="")
 nrow(sib)
 
 #### Scales #### 
