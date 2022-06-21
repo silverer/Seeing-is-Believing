@@ -12,8 +12,8 @@ font-family: Times New Roman
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
-library(knitr)
-library(cowplot)
+if (!require("pacman")) install.packages("pacman"); library(pacman)
+p_load(knitr,cowplot)
 ```
 
 ```{r}
@@ -99,15 +99,6 @@ for(i in 1:length(scale.stems)){
 
 
 ```{r, fig.width=8,echo=FALSE,message=FALSE,results="asis"}
-# vnames <- c(z.lead.all = 'STEM Career Interest',
-#             z.interest.all = 'General STEM Interest',
-#             z.dd.belonging.all = 'STEM Belonging',
-#             z.dd.id.all = 'Identification with STEM',
-#             z.dd.threat.all = "Threat",
-#             z.dd.challenge.all = "Challenge",
-#             z.selfeff.all = "STEM Self-Efficacy",
-#             z.pj.fit.all = "Person-Job Fit",
-#             z.confidence.all = "Confidence")
 
 vnames <- c(z.lead.all = 'STEM career interest',
             z.interest.all = 'general STEM interest',

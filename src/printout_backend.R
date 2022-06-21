@@ -91,10 +91,18 @@ saveFmtdReg <- function(regDf, sheetName, fname){
            cols=1)
   saveWorkbook(wb, paste0(fname, ".xlsx"), overwrite=T)
 }
-
-cor_tab <- apa.cor.table(tmp.sib %>% 
-                           select(all_of(og.outcomes)) %>% 
-                           rename(!!!rev.vnames.og))
+#get table 1 for outcomes that are relevant to the study
+vnames.tmp <- c(lead.all = 'STEM Career Interest',
+            interest.all = 'General STEM Interest',
+            dd.belonging.all = 'STEM Belonging',
+            dd.id.all = 'Identification with STEM')
+rev.vnames.tmp <- names(vnames.tmp)
+names(rev.vnames.tmp) <- vnames.tmp[names(vnames.tmp)]
+tmp.1 <- tmp.sib %>% 
+  select(all_of(names(vnames.tmp))) %>% 
+  rename(!!!rev.vnames.tmp)
+  
+cor_tab <- apa.cor.table(tmp.1)
 cor_tab <- data.frame(cor_tab$table.body)
 cor_tab <- cor_tab %>% 
   filter(Variable != " ")
@@ -299,30 +307,30 @@ pairwise_df['formatted.result'] <- mapply(format_contrast_results, pairwise_df$e
                                           pairwise_df$lower.CL, pairwise_df$upper.CL,
                                           pairwise_df$t.ratio, pairwise_df$adj.p.value,
                                           pairwise_df$df, return_md=TRUE)
-h3a_cond = "Women Male scientist Pictured - Men Male scientist Pictured"
-h3b_cond = "Women Female scientist Not pictured - Women Female scientist Pictured"
-h3c_cond = "Women Male scientist Pictured - Women Female scientist Pictured"
+h1a_cond = "Women Male scientist Pictured - Men Male scientist Pictured"
+h1b_cond = "Women Female scientist Not pictured - Women Female scientist Pictured"
+h1c_cond = "Women Male scientist Pictured - Women Female scientist Pictured"
 
-h3a_table = pairwise_df %>%
-  dplyr::filter(new.contrast == h3a_cond) %>%
+h1a_table = pairwise_df %>%
+  dplyr::filter(new.contrast == h1a_cond) %>%
   dplyr::filter(adj.p.value.num < 0.1) %>%
   dplyr::select(outcome, new.contrast, formatted.result)
-h3a_sigoutcomes = h3a_table$outcome
-h3a_table
+h1a_sigoutcomes = h1a_table$outcome
+h1a_table
 
-h3b_table = pairwise_df %>%
-  dplyr::filter(new.contrast == h3b_cond) %>%
+h1b_table = pairwise_df %>%
+  dplyr::filter(new.contrast == h1b_cond) %>%
   dplyr::filter(adj.p.value.num < 0.1) %>%
   dplyr::select(outcome, new.contrast, formatted.result)
-h3b_sigoutcomes = h3b_table$outcome
-h3b_table
+h1b_sigoutcomes = h1b_table$outcome
+h1b_table
 
-h3c_table = pairwise_df %>%
-  dplyr::filter(new.contrast == h3c_cond) %>%
+h1c_table = pairwise_df %>%
+  dplyr::filter(new.contrast == h1c_cond) %>%
   dplyr::filter(adj.p.value.num < 0.1) %>%
   dplyr::select(outcome, new.contrast, formatted.result)
-h3c_sigoutcomes = h3c_table$outcome
-h3c_table
+h1c_sigoutcomes = h1c_table$outcome
+h1c_table
 
 
 #robustness check: does using the first vs. second set of interest items change the overall results?
