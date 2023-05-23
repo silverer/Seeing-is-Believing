@@ -36,25 +36,36 @@ age.string <- paste0("_M_ age (SD) = ",
                      " years (", 
                      number(sd(sib.og$age, na.rm=T), accuracy = .01),
                      ")")
-race.table <- data.frame(table(sib.og$race.cat.collapse))
-race.table$Var1 <- str_replace(str_replace(str_replace(str_replace(race.table$Var1, 
-                                                       "/African American", ""),
-                               "All", "all"),
-                               "White", "white"),
-                               "Asian", "Asian American")
-race.table["percent"] <- percent(race.table$Freq/sum(race.table$Freq),
-                                 accuracy = 1)
-race.table <- race.table %>% arrange(desc(Freq))
+
+race_ids <- c("white", "black", "asian",
+              "latino", "nativeam",
+              "prefer_not")
+race_percent <- sib.og %>% 
+  summarise(across(all_of(race_ids),
+                   ~sum(.x))) %>% 
+  mutate(across(everything(),
+                ~percent(.x/nrow(sib.og), accuracy = 1)
+                )
+         ) 
+colnames(race_percent) <- c("white", 
+                            "Black", 
+                            "Asian",
+                            "Latino/a", 
+                            "Native Am., Native AK, Native HI, Pac. Isl.",
+                            "no response")
+race_percent <- race_percent %>% 
+  pivot_longer(everything())
+
 race.string <- ""
 cat("  \n")
-for(i in 1:nrow(race.table)){
-  if(i < nrow(race.table)){
-    race.string <- paste0(race.string, race.table$percent[i], 
-                          " ", race.table$Var1[i],", ")
+for(i in 1:nrow(race_percent)){
+  if(i < nrow(race_percent)){
+    race.string <- paste0(race.string, race_percent$value[i], 
+                          " ", race_percent$name[i],", ")
   }
   else{
-    race.string <- paste0(race.string, race.table$percent[i], 
-                          " ", race.table$Var1[i])
+    race.string <- paste0(race.string, race_percent$value[i], 
+                          " ", race_percent$name[i])
   }
 }
 
@@ -197,3 +208,25 @@ for(n in new.rows){
 }
 
 ```
+
+Output effect sizes:
+
+```{r}
+effsize_df_pretty <- effsize_df %>% 
+  mutate(across(where(is.numeric),
+                ~number(.x, accuracy = .01))) %>% 
+  mutate(ef = str_c(effect.size, " (", 
+                    lower.CL, ", ", 
+                    upper.CL, ")")) %>% 
+  select(contrast, outcome, ef) %>% 
+  arrange(contrast) %>% 
+  filter(outcome %in% c("z.lead.all", "z.interest.all",
+                        "z.dd.belonging.all","z.selfeff.all"))
+effsize_df_pretty
+```
+
+```{r}
+write.csv(effsize_df_pretty, paste0("../",output, 'effect_sizes.csv'))
+```
+
+

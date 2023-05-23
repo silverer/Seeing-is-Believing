@@ -1,4 +1,4 @@
-
+*.icloud
 src/TEST*
 src/OLD*
 src/__pycache__/*

@@ -1,0 +1,56 @@
+"","original_code","response_num","major_name","college","is_stem"
+"1","Architecture  (1)","1","Architecture","Architecture",0
+"2","Architectural Studies  (2)","2","Architectural Studies","Architecture",0
+"3","Bioengineering  (3)","3","Bioengineering","Engineering",1
+"4","Chemical and Biomolecular Engineering  (4)","4","Chemical and Biomolecular Engineering","Engineering",1
+"5","Civil and Environmental Engineering  (5)","5","Civil and Environmental Engineering","Engineering",1
+"6","Computational and Applied Mathematics  (6)","6","Computational and Applied Mathematics","Engineering",1
+"7","Computer Science  (7)","7","Computer Science","Engineering",1
+"8","Electrical and Computer Engineering  (8)","8","Electrical and Computer Engineering","Engineering",1
+"9","Materials Science and NanoEngineering  (9)","9","Materials Science and NanoEngineering","Engineering",1
+"10","Mechanical Engineering  (10)","10","Mechanical Engineering","Engineering",1
+"11","Statistics  (11)","11","Statistics","Engineering",1
+"12","Ancient Mediterranean Civilizations  (12)","12","Ancient Mediterranean Civilizations","Humanities",0
+"13","Art History  (19)","19","Art History","Humanities",0
+"14","Asian Studies  (20)","20","Asian Studies","Humanities",0
+"15","Classical Studies  (21)","21","Classical Studies","Humanities",0
+"16","English  (22)","22","English","Humanities",0
+"17","European Studies  (23)","23","European Studies","Humanities",0
+"18","French Studies  (24)","24","French Studies","Humanities",0
+"19","German Studies  (25)","25","German Studies","Humanities",0
+"20","History  (26)","26","History","Humanities",0
+"21","Latin American Studies  (27)","27","Latin American Studies","Humanities",0
+"22","Medieval and Early Modern Studies  (28)","28","Medieval and Early Modern Studies","Humanities",0
+"23","Philosophy  (29)","29","Philosophy","Humanities",0
+"24","Religion  (30)","30","Religion","Humanities",0
+"25","Spanish and Portuguese  (31)","31","Spanish and Portuguese","Humanities",0
+"26","Study of Women, Gender, and Sexuality  (32)","32","Study of Women, Gender, and Sexuality","Humanities",0
+"27","Visual and Dramatic Arts  (33)","33","Visual and Dramatic Arts","Humanities",0
+"28","Music Performance (all instruments)  (13)","13","Music Performance (all instruments)","Music",0
+"29","Composition  (14)","14","Composition","Music",0
+"30","Music  (34)","34","Music","Music",0
+"31","Music History  (35)","35","Music History","Music",0
+"32","Music Theory  (36)","36","Music Theory","Music",0
+"33","Astronomy  (37)","37","Astronomy","Natural science",1
+"34","Astrophysics  (38)","38","Astrophysics","Natural science",1
+"35","Biochemistry and Cell Biology  (39)","39","Biochemistry and Cell Biology","Natural science",1
+"36","Chemical Physics  (40)","40","Chemical Physics","Natural science",1
+"37","Chemistry  (15)","15","Chemistry","Natural science",1
+"38","Earth Science  (16)","16","Earth Science","Natural science",1
+"39","Ecology and Evolutionary Biology  (41)","41","Ecology and Evolutionary Biology","Natural science",1
+"40","Environmental Science  (42)","42","Environmental Science","Natural science",1
+"41","Kinesiology  (43)","43","Kinesiology","Natural science",1
+"42","Mathematics  (44)","44","Mathematics","Natural science",1
+"43","Neuroscience  (45)","45","Neuroscience","Natural science",1
+"44","Physics  (46)","46","Physics","Natural science",1
+"45","Anthropology  (47)","47","Anthropology","Social science",0
+"46","Cognitive Sciences  (48)","48","Cognitive Sciences","Social science",0
+"47","Economics  (49)","49","Economics","Social science",0
+"48","Linguistics  (50)","50","Linguistics","Social science",0
+"49","Managerial Studies  (51)","51","Managerial Studies","Social science",0
+"50","Mathematical Economic Analysis  (52)","52","Mathematical Economic Analysis","Social science",0
+"51","Political Science  (53)","53","Political Science","Social science",0
+"52","Psychological Sciences  (54)","54","Psychological Sciences","Social science",0
+"53","Social Policy Analysis  (55)","55","Social Policy Analysis","Social science",0
+"54","Sociology  (56)","56","Sociology","Social science",0
+"55","Sport Management  (57)","57","Sport Management","Social science",0

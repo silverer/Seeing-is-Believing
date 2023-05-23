@@ -5,12 +5,45 @@ setwd("~/Documents/Seeing-is-Believing")
 source('src/data_io.R')
 select <- dplyr::select
 filter <- dplyr::filter
-sib<-read.csv(paste0(experiment_data, '/experimental_de_id_data.csv'))
+sib<-read.csv(paste0(experiment_data, '/experimental_de_id_data_1.csv'))
+sib.txt <- read.csv(paste0(experiment_data, "/de_id_text_data.csv"))
+#add in text data for race
+sib <- left_join(sib, 
+                 sib.txt %>% 
+                   select(contains("race"), contains("ethn"),ResponseId),
+                 by="ResponseId",
+                 suffix=c("", ".txt"))
+#Assign major as STEM or non-STEM (see .csv for details)
+all.majors <- read.csv(paste0(experiment_data, '/sib_all_majors.csv'))
+all.majors$response_num <- as.character(all.majors$response_num)
+stem.majors <- all.majors %>% 
+  filter(is_stem==1)
+
+AssignStemMajors <- function(major.list){
+  temp = str_split(major.list, ",")
+  for(t in temp){
+    ifelse(t %in% stem.majors$response_num,
+           return(TRUE), next)
+  }
+  return(FALSE)
+}
+
+GetMajorLabel <- function(major.list){
+  temp = unlist(str_split(major.list, ","))
+  major.list = ""
+  major.sub = all.majors %>% filter(response_num %in% temp)
+  return(str_c(major.sub$major_name, collapse=", "))
+  
+}
+sib$is.stem.major <- unlist(lapply(sib$major, AssignStemMajors))
+sib$major.names <- unlist(lapply(sib$major, GetMajorLabel))
 nrow(sib)
 #Filter out garbage responses
 sib <- sib[sib$DistributionChannel!="preview" &!is.na(sib$FL_15_DO),]
 
 nrow(sib)
+sib["in_research_methods_class"] <- str_detect(str_to_lower(sib$psych485), 
+                                               "(yes|voluneer)")
 #### Filter people who didn't finish, listed gender other than M/W, or were in research methods class ####
 sib$exclude_reason[sib$Finished == 0] <- "unfinished"
 sib$exclude_reason[sib$in_research_methods_class==T] <- "in research methods class"
@@ -74,7 +107,32 @@ sib$manip.image.score<-with(sib, ifelse(grepl("M",image.cond) & manip.image == 1
                                                       ifelse(grepl("O",image.cond) & article.cond == "genes" & manip.image == 3, 1,
                                                              ifelse(grepl("O",image.cond) & article.cond == "shell" & manip.image == 4, 1,
                                                                     0))))))
-
+# sib$race.cat<-as.factor(with(sib, ifelse(race==1, "American Indian/Alaska Native",
+#                                          ifelse(race==13, "Asian",
+#                                                 ifelse(race==10, "Black/African American",
+#                                                        ifelse(race==11, "Native Hawaiian/Other Pacific Islander",
+#                                                               ifelse(race==3, "White",
+#                                                                      ifelse(race==12, "Prefer not to say",
+#                                                                             "Multi/Other"))))))))
+# summary(sib$race.cat)
+# hispanic.list<-c(1,12,112)
+# sib$ethnicity.cat<-as.factor(with(sib, ifelse(ethnicity %in% hispanic.list, "hispanic/latino",
+#                                               ifelse(ethnicity==2, "non-hispanic/latino",
+#                                                      "other"))))
+sib["eth.race"] <- str_c(sib$race.txt, ",",sib$ethnicity.txt)
+sib["white"] <- str_detect(sib$race.txt, "White")
+sib["black"] <- str_detect(sib$race.txt, "Black")
+sib["asian"] <- str_detect(sib$race.txt, "Asian")
+sib["latino"] <- (sib$ethnicity.txt=="Hispanic/Latino"|
+                    str_detect(str_to_lower(sib$race_5_TEXT), "(hispanic|espanol)"))
+sib["mideast"] <- str_detect(str_to_lower(sib$race_5_TEXT), "middle")
+sib["nativeam"] <- str_detect(sib$race.txt, "Native")
+race.cols <- c("white","black","asian","latino","mideast","nativeam")
+sib <- sib %>% 
+  mutate(across(all_of(race.cols),
+                ~as.numeric(.x)))
+sib["prefer_not_sum"] <- rowSums(sib[,race.cols])
+sib["prefer_not"] <- sib$prefer_not_sum==0
 #Create pretty variables for plotting/analysis
 sib <- sib %>% 
   mutate(perceived.gender = ifelse(manip.gender == 1, 'Perceived gender: Man',
@@ -109,13 +167,14 @@ sib <- sib %>%
   )
 
 fail.table <- table(sib.all$article.image.cond,sib.all$failed_attn_check)
-exclusion_tracker['failed_attn_check'] <- nrow(sib %>% filter(failed_attn_check==TRUE))
+# exclusion_tracker <- data.frame(failed_attn_check=1)
+# exclusion_tracker['failed_attn_check'] <- nrow(sib %>% filter(failed_attn_check==TRUE))
 exclusion_tracker <- data.frame(table(sib$exclude_reason))
 exclusion_tracker$Var1 <- as.character(exclusion_tracker$Var1)
 exclusion_tracker$Var1[1] <- "final included"
 exclusion_tracker <- rbind(exclusion_tracker,
                            c("original total", nrow(sib.all)))
-write.csv(exclusion_tracker, paste0(output, "/exclusion_tracker.csv"))
+#write.csv(exclusion_tracker, paste0(output, "/exclusion_tracker.csv"))
 sib.excluded <- sib %>% 
   filter(exclude_reason != "")
 #sib<-sib[sib$stimuli.title.score==1 & sib$manip.gender.score == 1 & sib$manip.image.score == 1,]
@@ -395,7 +454,7 @@ variable_key["scale_stem"] <- ifelse(str_detect(variable_key$clean_varname, "_\\
                                           "_\\d{1,2}R{0,1}", ""),
                                      NA)
 
-write.csv(variable_key, paste0(experiment_data, "/variable_names_key.csv"))
+#write.csv(variable_key, paste0(experiment_data, "/variable_names_key.csv"))
 scale.names <- variable_key %>% 
   filter(!is.na(scale_stem)&str_detect(scale_stem, "TEXT")==F)
 keep.columns <- scale.names$clean_varname
@@ -474,7 +533,10 @@ sib.clean <- sib %>%
   select(article.cond, gender.cond, participant.gender,`Image condition`,
          starts_with("z."), all_of(outcome.vars), all_of(keep.columns),
          interest.rep.items, selfeff.interest.rep.items,
-         age, race.cat.collapse) %>% 
+         age,is.stem.major,major.names, major,contains("race"),
+         contains("eth"),
+         ends_with("txt"), all_of(race.cols), prefer_not) %>% 
   rename(image.cond=`Image condition`)
+
 #Save subset of data with just variables necessary for analysis
 write.csv(sib.clean, paste0(experiment_data,"/outcomes_experimental_data_clean_v1.csv"))

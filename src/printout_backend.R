@@ -122,7 +122,7 @@ aov_result_df <- data.frame(Predictor = rep("", 9))
 marginal.means <- list()
 emm.objs <- list()
 plots.3way <- list()
-
+mods <- list()
 for(v in names(vnames)){
   sib.sub <- sib.og %>% 
     select(all_of(c(v, "participant.gender", "image.cond",
@@ -134,6 +134,7 @@ for(v in names(vnames)){
                          sep=" * ")))
   options(contrasts = rep("contr.sum", 2))
   mod.allconds <- lm(f, data = sib.sub)
+  mods[[o]] <- mod.allconds
   apa.aov.table(mod.allconds, 
                 filename = paste0("../",output, v," 3 way.doc"))
   tmp <- apa.aov.table(mod.allconds)$table_body
@@ -200,7 +201,7 @@ for(v in names(vnames)){
       # Add axis line
       axis.line = element_line(colour = "black")
     )
-  
+
   sib.sub <- sib.og %>% 
     select(all_of(c(v, "participant.gender", "image.cond",
                     "gender.cond", "article.cond")))
@@ -267,7 +268,12 @@ for(o in outcomes){
   #rename rows to reflect contrast reference level
   test.out <- test.out %>%
     mutate(new.contrast = recode_factor(contrast, !!!new.rows))
-
+  tmp.effsize.df <- data.frame(eff_size(emm.objs[[o]],
+                         sigma=sigma(mods[[o]]),
+                         edf=df.residual(mods[[o]])))
+  tmp.effsize.df["outcome"] <- o
+  tmp.effsize.df <- tmp.effsize.df %>% 
+    filter(contrast %in% keep.rows)
   for(i in 1:nrow(test.out)){
     if(test.out$contrast[i] != test.out$new.contrast[i]){
       test.out$estimate[i] <- test.out$estimate[i]*-1
@@ -282,9 +288,11 @@ for(o in outcomes){
   }
   if(o == outcomes[1]){
     pairwise_df <- test.out
+    effsize_df <- tmp.effsize.df
 
   }else{
     pairwise_df <- rbind(pairwise_df, test.out)
+    effsize_df <- rbind(effsize_df, tmp.effsize.df)
   }
 }
 
@@ -331,7 +339,6 @@ h1c_table = pairwise_df %>%
   dplyr::select(outcome, new.contrast, formatted.result)
 h1c_sigoutcomes = h1c_table$outcome
 h1c_table
-
 
 #robustness check: does using the first vs. second set of interest items change the overall results?
 sib.og["participant.id"] <- 1:nrow(sib.og)
