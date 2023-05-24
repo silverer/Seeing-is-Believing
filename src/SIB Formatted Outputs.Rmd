@@ -17,7 +17,7 @@ p_load(knitr,cowplot)
 ```
 
 ```{r}
-source('printout_backend.R')
+source('unstd_printout_backend.R')
 ```
 
 
@@ -168,12 +168,9 @@ for(o in oc){
   
 }
 #save multipanel plot
-cowplot::save_plot("../plots/multipanel.eps", figure,
-                   base_height = 6, base_width = 8,
-                   dpi=400, family = "Times")
 cowplot::save_plot("../plots/multipanel.png", figure,
                    base_height = 6, base_width = 8,
-                   dpi=400, family = "Times")
+                   dpi=400)
 ```
 
 Big ANOVA table:
@@ -226,7 +223,7 @@ effsize_df_pretty
 ```
 
 ```{r}
-write.csv(effsize_df_pretty, paste0("../",output, 'effect_sizes.csv'))
+write.csv(effsize_df_pretty, paste0("../",output, 'unstdeffect_sizes.csv'))
 ```
 
 

@@ -1,0 +1,255 @@
+---
+title: "Seeing is believing 3-way ANOVAs"
+author: "Elisabeth R. Silver et al."
+date: '`r format(Sys.Date(), "%B %d, %Y")`'
+output:
+  word_document: 
+    reference_docx: sib-style-ref.docx
+  pdf_document:
+    latex_engine: xelatex
+font-family: Times New Roman
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+if (!require("pacman")) install.packages("pacman"); library(pacman)
+p_load(knitr,cowplot,flextable)
+```
+
+```{r}
+source('unstd_printout_backend.R')
+```
+
+
+## 3-way interactions
+
+Knitting this file to a Word document produces formatted outputs that can be easily copied and pasted into a manuscript write-up file.
+
+```{r}
+alphas <- read.csv(paste0("../",output, 'cronbach_alphas.csv'))
+variable_key <- read.csv(paste0("../",experiment_data, "/variable_names_key.csv"))
+variable_key$scale_stem[variable_key$clean_varname=="dd.id"] <- "dd.id"
+exclusion_tracker <- read.csv(paste0("../", output, "exclusion_tracker.csv"))
+total.excluded <- exclusion_tracker$original_length-nrow(sib.og)
+age.string <- paste0("_M_ age (SD) = ", 
+                     number(mean(sib.og$age, na.rm = T),accuracy = .01),
+                     " years (", 
+                     number(sd(sib.og$age, na.rm=T), accuracy = .01),
+                     ")")
+
+race_ids <- c("white", "black", "asian",
+              "latino", "nativeam",
+              "prefer_not")
+race_percent <- sib.og %>% 
+  summarise(across(all_of(race_ids),
+                   ~sum(.x))) %>% 
+  mutate(across(everything(),
+                ~percent(.x/nrow(sib.og), accuracy = 1)
+                )
+         ) 
+colnames(race_percent) <- c("white", 
+                            "Black", 
+                            "Asian",
+                            "Latino/a", 
+                            "Native Am., Native AK, Native HI, Pac. Isl.",
+                            "no response")
+race_percent <- race_percent %>% 
+  pivot_longer(everything())
+
+race.string <- ""
+cat("  \n")
+for(i in 1:nrow(race_percent)){
+  if(i < nrow(race_percent)){
+    race.string <- paste0(race.string, race_percent$value[i], 
+                          " ", race_percent$name[i],", ")
+  }
+  else{
+    race.string <- paste0(race.string, race_percent$value[i], 
+                          " ", race_percent$name[i])
+  }
+}
+
+gender.string <- paste0(percent(nrow(sib.og %>% filter(participant.gender=="Women"))/nrow(sib.og),
+                                accuracy = 1), " women")
+```
+
+We recruited `r exclusion_tracker$original_length` participants from an undergraduate psychology subject pool to participate in an online study. Of these participants, `r total.excluded` were excluded from analyses because they did not finish the survey, were enrolled as students in the research lab where the study was conducted, did not identify as men or women, and/or failed manipulation checks. This resulted in a final dataset of `r nrow(sib.og)` participants, `r age.string`, `r race.string`, `r gender.string`.
+
+
+```{r fig.width=8,echo=FALSE,message=FALSE,results="asis"}
+vnames <- c(lead.all = 'STEM career interest',
+            interest.all = 'General STEM interest',
+            dd.belonging.all = 'STEM belonging',
+            dd.id.all = 'Identification with STEM')
+scale.stems <- variable_key %>% 
+  filter(!is.na(scale_stem)) %>% 
+  filter(!duplicated(scale_stem)) %>% 
+  filter(str_detect(scale_stem, "TEXT")==F)
+scale.stems <- scale.stems$scale_stem
+oc <- names(vnames)
+for(i in 1:length(scale.stems)){
+  cat("  \n")
+  tmp <- variable_key %>% 
+    filter(str_starts(clean_varname, 
+                      scale.stems[i]))
+  cat(paste0(scale.stems[i], " was measured using a ", nrow(tmp), 
+             "-item scale (CITE). Responses were measured on a 7-point Likert-type scale (1 = _strongly disagree_, 7 = _strongly agree_, ",
+             "Cronbach's $\\alpha$ = ", 
+             number(alphas[[paste0(scale.stems[i], ".all")]], 
+                    accuracy = .01), ". "))
+  cat(paste0('A sample item is: "', str_trim(str_replace(tmp$clean_variable_desc[1],
+                                                "Please indicate", "")), '"'))
+}
+```
+
+
+
+```{r, fig.width=8,echo=FALSE,message=FALSE,results="asis"}
+
+vnames <- c(lead.all = 'STEM career interest',
+            interest.all = 'general STEM interest',
+            dd.belonging.all = 'STEM belonging',
+            dd.id.all = 'identification with STEM')
+
+for(o in oc){
+  cat("  \n")
+  cat(paste0("  ## ",  vnames[[o]], "  \n"))
+  tmp.aov <- aov_results[[o]]
+  for(i in 2:nrow(tmp.aov)-1){
+    if(str_detect(tmp.aov$Predictor[i], "X")){
+      if(as.numeric(tmp.aov$p[i])<.05){
+        cat("  \n")
+        cat(paste0("There was a significant ", str_to_lower(tmp.aov$Predictor[i]),
+                   " interaction effect on ", vnames[[o]], ", ",
+                   tmp.aov$stat_string[i], "."))
+      }
+      else{
+        cat("  \n")
+        cat(paste0("The ", str_to_lower(tmp.aov$Predictor[i]),
+                   " interaction effect on ", vnames[[o]], 
+                   " was not significant, ",
+                   tmp.aov$stat_string[i], "."))
+      }
+      
+    }
+    else{
+      if(as.numeric(tmp.aov$p[i])<.05){
+        cat("  \n")
+        cat(paste0("There was a significant main effect of ", str_to_lower(tmp.aov$Predictor[i]),
+                   " on ", vnames[[o]], ", ",
+                   tmp.aov$stat_string[i], "."))
+      }
+      else{
+        cat("  \n")
+        cat(paste0("The main effect of ", str_to_lower(tmp.aov$Predictor[i]),
+                   " on ", vnames[[o]], " was not significant, ",
+                   tmp.aov$stat_string[i], "."))
+      }
+    }
+  }
+  cat("  \n")
+  print(plots.3way[[o]])
+  cowplot::save_plot(paste0("../plots/", o, ".png"),
+                     plots.3way[[o]], base_width = 8.5,
+                     base_height = 10)
+
+  cat("  \n")
+  
+  
+}
+#save multipanel plot
+cowplot::save_plot("../plots/multipanel.png", figure,
+                   base_height = 6, base_width = 8,
+                   dpi=400)
+```
+
+Big ANOVA table:
+
+```{r,results="asis"}
+aov_tab <- aov_result_df %>% 
+  filter(Predictor != "(Intercept)") %>% 
+  filter(Predictor != "Error") %>% 
+  select(Predictor, 
+         `STEM Career Interest`,
+         `General STEM Interest`,
+         `STEM Belonging`,
+         `Identification with STEM`)
+aov_tab <- aov_tab %>% 
+  mutate(across(everything(),
+                ~str_replace_all(.x, "_F_[(]1, 328[)] = ", ""))) %>% 
+  mutate(across(everything(),
+                ~str_replace_all(.x, " = 0.000", " < 0.01"))) 
+cat("  \n")
+print(knitr::kable(aov_tab))
+cat("  \n")
+```
+
+
+Output pairwise contrast results:
+
+```{r,echo=FALSE,message=FALSE,results="asis"}
+pairwise_df <- pairwise_df %>% 
+  mutate(pretty.outcome = recode(outcome, !!!vnames),
+         group1 = unlist(str_split(new.contrast, " -"))[1],
+         group2 = unlist(str_split(new.contrast, "- "))[2])
+for(n in new.rows){
+  this_contr <- pairwise_df %>% dplyr::filter(new.contrast == n)
+  this_contr <- this_contr %>% dplyr::select(new.contrast, formatted.result, pretty.outcome)
+  print(knitr::kable(this_contr))
+  cat("  \n")
+}
+
+```
+
+Output effect sizes:
+
+```{r}
+effsize_df_pretty <- effsize_df %>% 
+  mutate(across(where(is.numeric),
+                ~number(.x, accuracy = .01))) %>% 
+  mutate(ef = str_c(effect.size, " (", 
+                    lower.CL, ", ", 
+                    upper.CL, ")")) %>% 
+  select(contrast, outcome, ef) %>% 
+  arrange(contrast) %>% 
+  filter(outcome %in% c("lead.all", "interest.all",
+                        "dd.belonging.all","dd.id.all"))
+effsize_df_pretty %>% 
+  flextable()
+```
+
+```{r}
+write.csv(effsize_df_pretty, paste0("../",output, 'unstdeffect_sizes.csv'))
+```
+
+Output means by gender and condition:
+
+```{r}
+
+sib.og %>% 
+  group_by(gender.cond,participant.gender,image.cond) %>% 
+  summarise(across(all_of(oc),
+                   ~str_c("M = ",
+                          number(mean(.x, na.rm=T), accuracy = .01),
+                          ", SD = ",
+                          number(sd(.x, na.rm=T), accuracy = .01)))) %>% 
+  ungroup() %>% 
+  flextable()
+
+```
+
+Output means by gender:
+
+```{r}
+
+sib.og %>% 
+  group_by(participant.gender) %>% 
+  summarise(across(all_of(oc),
+                   ~str_c("M = ",
+                          number(mean(.x, na.rm=T), accuracy = .01),
+                          ", SD = ",
+                          number(sd(.x, na.rm=T), accuracy = .01)))) %>% 
+  ungroup() %>% 
+  flextable()
+
+```

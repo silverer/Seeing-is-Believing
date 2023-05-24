@@ -5,8 +5,7 @@ if (!require("pacman")) install.packages("pacman"); library(pacman)
 source("data_io.R")
 p_load(stats, psych, tidyverse,
        emmeans,cowplot,rstatix,ggpubr,openxlsx,
-       apaTables, scales, statstring,tableone)
-
+       apaTables, scales, statstring,tableone,extrafont)
 sib.og <- read.csv(paste0("../",experiment_data, "/outcomes_experimental_data_clean_v1.csv"))
 
 vnames <- c(z.lead.all = 'STEM Career Interest',
@@ -134,7 +133,7 @@ for(v in names(vnames)){
                          sep=" * ")))
   options(contrasts = rep("contr.sum", 2))
   mod.allconds <- lm(f, data = sib.sub)
-  mods[[o]] <- mod.allconds
+  
   apa.aov.table(mod.allconds, 
                 filename = paste0("../",output, v," 3 way.doc"))
   tmp <- apa.aov.table(mod.allconds)$table_body
@@ -150,6 +149,8 @@ for(v in names(vnames)){
   aov_result_df["Predictor"] <- tmp$Predictor
   aov_result_df[vnames[[v]]] <- tmp$stat_string
   o <- v
+  #save model object for effect size calculation
+  mods[[o]] <- mod.allconds
   #Get marginal means and standard errors for plotting
   emm.objs[[o]] <- emmeans(mod.allconds, indep.vars.og)
   marginal.means[[o]] <- as.data.frame(emm.objs[[o]])
@@ -196,7 +197,7 @@ for(v in names(vnames)){
       panel.background = element_blank(),
       panel.border = element_rect(fill=NA),
       text=element_text(family="Times", size=14),
-      axis.text.x.bottom = element_text(family = "Times", size = 12),
+      axis.text.x.bottom = element_text(family="Times", size = 12),
       legend.key = element_rect(fill="white"),
       # Add axis line
       axis.line = element_line(colour = "black")
@@ -510,7 +511,7 @@ stem_interest <- marginal.means$z.interest.all %>%
     panel.background = element_blank(),
     panel.border = element_rect(fill=NA),
     text=element_text(family="Times", size=12),
-    axis.text.x.bottom = element_text(family = "Times", size = 12),
+    axis.text.x.bottom = element_text(family="Times", size = 12),
     # Add axis line
     axis.line = element_line(colour = "black"),
     legend.key = element_rect(fill="white"),
