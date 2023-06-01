@@ -6,8 +6,22 @@ source("data_io.R")
 p_load(stats, psych, tidyverse,
        emmeans,cowplot,rstatix,ggpubr,openxlsx,
        apaTables, scales, statstring,tableone,extrafont)
+select <- dplyr::select
+filter <- dplyr::filter
 sib.og <- read.csv(paste0("../",experiment_data, "/outcomes_experimental_data_clean_v1.csv"))
 
+#info on school in which major is housed
+sib.og$in.engineering <- str_detect(sib.og$major.schools, "Engineering")
+sib.og$in.natsci <- str_detect(sib.og$major.schools, "Natural ")
+sib.og$ns.or.eng <- str_detect(sib.og$major.schools, "(Natural |Engineering)")
+table(sib.og$ns.or.eng)
+non.stem <- sib.og %>% 
+  filter(ns.or.eng==F)
+table(non.stem$major.schools)
+
+some.stem <- sib.og %>% 
+  filter(ns.or.eng==T)
+table(some.stem$major.schools)
 vnames <- c(lead.all = 'STEM Career Interest',
             interest.all = 'General STEM Interest',
             dd.belonging.all = 'STEM Belonging',
@@ -310,7 +324,7 @@ pairwise_df['formatted.result'] <- mapply(format_contrast_results, pairwise_df$e
                                           pairwise_df$t.ratio, pairwise_df$adj.p.value,
                                           pairwise_df$df, return_md=TRUE)
 
-pairwise_df
+#pairwise_df
 h1a_cond = "Women Male scientist Pictured - Men Male scientist Pictured"
 h1b_cond = "Women Female scientist Not pictured - Women Female scientist Pictured"
 h1c_cond = "Women Male scientist Pictured - Women Female scientist Pictured"
@@ -561,3 +575,18 @@ save_plot("../plots/unstdmultipanel_4panels.png", figure.4panel,
           base_width = 8, base_height=10)
 save_plot("../plots/unstdmultipanel_4panels.tiff", figure.4panel,
           base_width = 8, base_height=10)
+#not sure if this is the simple effect tests they're looking for?
+#effect of participant gender at levels: male scientist, pictured
+test.mod <- mods$lead.all
+pairs(emmeans(test.mod, 
+              ~participant.gender|image.cond, 
+              by = "gender.cond"))
+#effect of scientist gender at levels: women, pictured
+pairs(emmeans(test.mod, 
+              ~gender.cond|image.cond, 
+              by = "participant.gender"))
+#effect of pictured vs. not at levels: women, female scientist
+pairs(emmeans(test.mod, 
+              ~image.cond|gender.cond, 
+              by = "participant.gender"))
+

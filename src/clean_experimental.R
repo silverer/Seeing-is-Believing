@@ -33,11 +33,39 @@ GetMajorLabel <- function(major.list){
   major.list = ""
   major.sub = all.majors %>% filter(response_num %in% temp)
   return(str_c(major.sub$major_name, collapse=", "))
-  
 }
+
+GetMajorSchool <- function(major.list){
+  temp = unlist(str_split(major.list, ","))
+  major.list = ""
+  major.sub = all.majors %>% 
+    filter(response_num %in% temp) %>% 
+    filter(!duplicated(college))
+  return(str_c(major.sub$college, collapse=", "))
+}
+
+GetMajorCount <- function(major.list){
+  temp = unlist(str_split(major.list, ","))
+  return(length(temp))
+}
+
+table(sib$major_58_TEXT)
+
+#there are a couple of cases where someone used the "other" text response--address those here
+sib$major[sib$major_58_TEXT=="Kinesiology"] <- "43"
+#someone wrote biosciences, which isn't technically a major (it's a department)
+#we will code this as Ecology and Evolutionary Biology, which is a degree within the bioscience department
+#possible majors for the department are (see https://biosciences.rice.edu/undergraduate-programs):
+#Biochemistry, Cell Biology and Genetics, Ecology and Evolutionary Biology, and Integrative Biology.
+#all of these majors are in the school of natural sciences
+sib$major[sib$major_58_TEXT=="Bioscience"] <- "41"
+
 sib$is.stem.major <- unlist(lapply(sib$major, AssignStemMajors))
 sib$major.names <- unlist(lapply(sib$major, GetMajorLabel))
 nrow(sib)
+sib$major.schools <- unlist(lapply(sib$major, GetMajorSchool))
+sib$major.num <- unlist(lapply(sib$major, GetMajorCount))
+
 #Filter out garbage responses
 sib <- sib[sib$DistributionChannel!="preview" &!is.na(sib$FL_15_DO),]
 
@@ -48,6 +76,9 @@ sib["in_research_methods_class"] <- str_detect(str_to_lower(sib$psych485),
 sib$exclude_reason[sib$Finished == 0] <- "unfinished"
 sib$exclude_reason[sib$in_research_methods_class==T] <- "in research methods class"
 sib$exclude_reason[(sib$gender > 2 |is.na(sib$gender))]<-"did not identify as women or men"
+sib$exclude_reason[sib$major.num > 4] <-"selected more than 4 majors"
+sib$exclude_reason[sib$major_58_TEXT=="swagonometry"]<- "joke answer for major"
+
 
 #### Participant gender variable ####
 #3 is self-describe, 6 is prefer not to say
@@ -107,18 +138,7 @@ sib$manip.image.score<-with(sib, ifelse(grepl("M",image.cond) & manip.image == 1
                                                       ifelse(grepl("O",image.cond) & article.cond == "genes" & manip.image == 3, 1,
                                                              ifelse(grepl("O",image.cond) & article.cond == "shell" & manip.image == 4, 1,
                                                                     0))))))
-# sib$race.cat<-as.factor(with(sib, ifelse(race==1, "American Indian/Alaska Native",
-#                                          ifelse(race==13, "Asian",
-#                                                 ifelse(race==10, "Black/African American",
-#                                                        ifelse(race==11, "Native Hawaiian/Other Pacific Islander",
-#                                                               ifelse(race==3, "White",
-#                                                                      ifelse(race==12, "Prefer not to say",
-#                                                                             "Multi/Other"))))))))
-# summary(sib$race.cat)
-# hispanic.list<-c(1,12,112)
-# sib$ethnicity.cat<-as.factor(with(sib, ifelse(ethnicity %in% hispanic.list, "hispanic/latino",
-#                                               ifelse(ethnicity==2, "non-hispanic/latino",
-#                                                      "other"))))
+
 sib["eth.race"] <- str_c(sib$race.txt, ",",sib$ethnicity.txt)
 sib["white"] <- str_detect(sib$race.txt, "White")
 sib["black"] <- str_detect(sib$race.txt, "Black")
@@ -144,28 +164,29 @@ sib <- sib %>%
          failed_attn_check = ifelse(stimuli.title.score != 1 | manip.gender.score != 1 | manip.image.score != 1,
                                     TRUE, FALSE))
 sib$exclude_reason[sib$failed_attn_check==T] <- "failed attention check"
+
 sib.all <- sib
 
-sib <- sib %>% 
-  mutate(
-    exclude_reason = if_else(
-      Finished == 0,
-      "unfinished", 
-      if_else(
-        in_research_methods_class==T,
-        "in research methods class",
-        if_else(
-          (is.na(gender)|gender>2),
-          "did not identify as women or men",
-          if_else(
-            failed_attn_check == T,
-            "failed attention check", ""
-          )
-        )
-      )
-    )
-  )
-
+# sib <- sib %>% 
+#   mutate(
+#     exclude_reason = if_else(
+#       Finished == 0,
+#       "unfinished", 
+#       if_else(
+#         in_research_methods_class==T,
+#         "in research methods class",
+#         if_else(
+#           (is.na(gender)|gender>2),
+#           "did not identify as women or men",
+#           if_else(
+#             failed_attn_check == T,
+#             "failed attention check", ""
+#           )
+#         )
+#       )
+#     )
+#   )
+sib$exclude_reason[is.na(sib$exclude_reason)] <- ""
 fail.table <- table(sib.all$article.image.cond,sib.all$failed_attn_check)
 # exclusion_tracker <- data.frame(failed_attn_check=1)
 # exclusion_tracker['failed_attn_check'] <- nrow(sib %>% filter(failed_attn_check==TRUE))
@@ -174,7 +195,7 @@ exclusion_tracker$Var1 <- as.character(exclusion_tracker$Var1)
 exclusion_tracker$Var1[1] <- "final included"
 exclusion_tracker <- rbind(exclusion_tracker,
                            c("original total", nrow(sib.all)))
-#write.csv(exclusion_tracker, paste0(output, "/exclusion_tracker.csv"))
+write.csv(exclusion_tracker, paste0(output, "/exclusion_tracker.csv"))
 sib.excluded <- sib %>% 
   filter(exclude_reason != "")
 #sib<-sib[sib$stimuli.title.score==1 & sib$manip.gender.score == 1 & sib$manip.image.score == 1,]
@@ -533,8 +554,9 @@ sib.clean <- sib %>%
   select(article.cond, gender.cond, participant.gender,`Image condition`,
          starts_with("z."), all_of(outcome.vars), all_of(keep.columns),
          interest.rep.items, selfeff.interest.rep.items,
-         age,is.stem.major,major.names, major,contains("race"),
-         contains("eth"),
+         age,is.stem.major,major.names, major,
+         major.schools, major.num, contains("race"),
+         contains("eth"),ResponseId,
          ends_with("txt"), all_of(race.cols), prefer_not) %>% 
   rename(image.cond=`Image condition`)
 
