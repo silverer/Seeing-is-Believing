@@ -213,8 +213,15 @@ for(v in names(vnames)){
                          sep=" * ")))
   options(contrasts = rep("contr.sum", 2))
   mod.allconds <- lm(f, data = sib.sub)
-  apa.aov.table(mod.allconds, 
-                filename = paste0("../",output, v,"unstd 4 way.doc"))
+  aov4out <- data.frame(apa.aov.table(mod.allconds)$table_body)
+  aov4out <- aov4out %>% 
+    mutate(Predictor = str_replace(Predictor, "gender[.]cond", "Scientist Gender"),
+           Predictor = str_replace(Predictor, "article[.]cond", "Article Topic"),
+           Predictor = str_replace(Predictor, "[.]cond", " Condition"),
+           Predictor = str_replace(Predictor, "[.]", " "),
+           Predictor = str_to_title(Predictor)
+  )
+  write.xlsx(aov4out,paste0("../output/", v, "4way.xlsx"))
 }
 
 format_contrast_results <- function(mdiff, lower_ci, upper_ci, t_val,
