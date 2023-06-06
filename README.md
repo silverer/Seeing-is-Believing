@@ -1,11 +1,12 @@
 # Seeing is Believing: The Presence and Impact of Ambient Sexism Toward Collegiate Women in STEM
  Code to run and analyze data for Seeing is Believing project
 
-E.R. Silver<sup>1</sup>, Linnea C. Ng<sup>1</sup>, Abby Corrington<sup>2</sup>, Mikki Hebl<sup>1</sup>, & Janet Braam<sup>3</sup>
+E.R. Silver<sup>1</sup>, Linnea C. Ng<sup>2</sup>, Abby Corrington<sup>3</sup>, Mikki Hebl<sup>1</sup>, & Janet Braam<sup>4</sup>
 
 1. Department of Psychological Sciences, Rice University
-2. Department of Management, Providence College School of Business
-3. Department of BioSciences, Rice University
+2. Department of Psychology, Lawrence University
+3. Department of Management, Providence College School of Business
+4. Department of BioSciences, Rice University
 
 ## Study 1
 
@@ -32,10 +33,8 @@ The final study is an experimental study. To protect participants' privacy and c
 
 Note that many of the test statistic formatting operations are accomplished through a custom package that is still in development called `statstring`. The package can be installed via Github using the R package `devtools` as follows: `devtools::install_github("silverer/statstring")`. Alternatively, you can remove all instances of `format_anova_string` and calls to objects produced by this function in `SIB Formatted Outputs.Rmd`. 
 
-* `clean_experimental.R` cleans a redacted dataset and prepares it for analysis. It excludes participants based on several criteria (see publication for details). It uses the redacted data file `data/experiment/experiment_de_id_data.csv`. This data file is available upon request (please email: elisabeth.silver[at]rice.edu). This script also produces a smaller, publicly available dataset called `data/experiment/outcomes_experimental_data_clean.csv`. This is the dataset required to run all subsequent analysis scripts.
-* `zscore_descriptive_stats.R` uses `data/experiment/outcomes_experimental_data_clean.csv` to generate outputs containing zero-order correlations and means by experimental condition and participant gender. 
-* `save_anova_outputs.R` sources `zscore_descriptive_stats.R` and uses `data/experiment/outcomes_experimental_data_clean.csv` to run and save the results of 3-way ANOVAs for the primary outcomes. This script also runs and produces results of 4-way ANOVAs to include in supplementary materials. The results of these tests are saved in the `output/` folder. 
-* `printout_backend.R` reads in the `data/experiment/outcomes_experimental_data_clean.csv` data file and runs 3-way ANOVAs, prepares plots, calculates FDR-adjusted planned pairwise comparisons, and produces formatted test statistics. This is the main script supporting `SIB Formatted Outputs.Rmd`.
-* `SIB Formatted Outputs.Rmd` sources `printout_backend.R` and, when knit to a Word document, produces a file with formatted test statistics, mean differences, effect sizes, plots, etc. that can be easily copied and pasted into a manuscript file. 
+* `clean_experimental.R` cleans a redacted dataset and prepares it for analysis. It excludes participants based on several criteria (see publication for details). It uses the redacted data files `data/experiment/experiment_de_id_data_1.csv` and `data/experiment/de_id_text_data.csv`. This script also produces a smaller clean dataset called `data/experiment/outcomes_experimental_data_clean_v1.csv`. This is the dataset required to run all subsequent analysis scripts.
+* `unstd_printout_backend.R` uses `data/experiment/outcomes_experimental_data_clean_v1.csv` to generate outputs containing zero-order correlations, plots, ANOVAs, pairwise comparisons, and means by experimental condition and participant gender. 
+* `Unstandardized SIB Formatted Outputs.Rmd` sources `unstd_printout_backend.R` and, when knit to a Word document, produces a file with formatted test statistics, mean differences, effect sizes, plots, etc. that can be easily copied and pasted into a manuscript file. 
 
 
