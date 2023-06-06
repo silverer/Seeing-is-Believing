@@ -582,18 +582,4 @@ save_plot("../plots/unstdmultipanel_4panels.png", figure.4panel,
           base_width = 8, base_height=10)
 save_plot("../plots/unstdmultipanel_4panels.tiff", figure.4panel,
           base_width = 8, base_height=10)
-#not sure if this is the simple effect tests they're looking for?
-#effect of participant gender at levels: male scientist, pictured
-test.mod <- mods$lead.all
-pairs(emmeans(test.mod, 
-              ~participant.gender|image.cond, 
-              by = "gender.cond"))
-#effect of scientist gender at levels: women, pictured
-pairs(emmeans(test.mod, 
-              ~gender.cond|image.cond, 
-              by = "participant.gender"))
-#effect of pictured vs. not at levels: women, female scientist
-pairs(emmeans(test.mod, 
-              ~image.cond|gender.cond, 
-              by = "participant.gender"))
 
