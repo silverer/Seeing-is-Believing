@@ -436,6 +436,7 @@ career_interest <- marginal.means$lead.all %>%
   ylab("STEM Career Interest")+
   xlab("Scientist Gender")+
   facet_wrap(~`Participant gender`)+
+  ylim(bottom=4,top=7)+
   theme(
     # Remove panel grid lines
     panel.grid.major = element_blank(),
@@ -473,6 +474,7 @@ stem_id <- marginal.means$dd.id.all %>%
   ylab("Identification with STEM")+
   xlab("Scientist Gender")+
   facet_wrap(~`Participant gender`)+
+  ylim(bottom=4,top=7)+
   theme(
     # Remove panel grid lines
     panel.grid.major = element_blank(),
@@ -516,6 +518,7 @@ stem_interest <- marginal.means$interest.all %>%
   ggtitle("General STEM Interest")+
   ylab("General STEM Interest")+
   xlab("Scientist Gender")+
+  ylim(bottom=4,top=7)+
   facet_wrap(~`Participant gender`)+
   theme(
     # Remove panel grid lines
@@ -549,6 +552,7 @@ stem_belong <- marginal.means$dd.belonging.all %>%
                     ymax=`Est. marginal mean`+SE),
                 width = 0.1, alpha = 0.5)+
   aes(linetype=`Image condition`)+
+  ylim(bottom=4,top=7)+
   labs(linetype = "Image Condition")+
   ggtitle("STEM Belongingness")+
   ylab("STEM Belongingness")+
@@ -582,4 +586,6 @@ save_plot("../plots/unstdmultipanel_4panels.png", figure.4panel,
           base_width = 8, base_height=10)
 save_plot("../plots/unstdmultipanel_4panels.tiff", figure.4panel,
           base_width = 8, base_height=10)
+
+
 
